@@ -25,6 +25,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "a984b717-3278-4a49-afb1-c8c72b32bb53"
+      }
+    },
+    "owner": "alexjpaz"
   }
 }
