@@ -9,8 +9,6 @@ import TrainingScreen from './screens/TrainingScreen';
 
 export default function App() {
 
-  const isDarkModeOn = true; // TODO
-
   return (
     <PaperProvider theme={Theme}>
       <View style={styles.container}>

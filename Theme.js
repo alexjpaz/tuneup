@@ -4,8 +4,6 @@ import { tokens } from 'react-native-paper/lib/commonjs/styles/themes/v3/tokens'
 
 const { palette } = tokens.md.ref;
 
-
-
 const Theme = {
     ...DefaultTheme,
     colors: {

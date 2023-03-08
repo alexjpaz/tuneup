@@ -5,40 +5,57 @@ import { IconButton } from "react-native-paper";
 import { TrainingScreenContext } from "./TrainingScreenContext";
 
 export default function ScalePlayerPlayButton() {
-    const [sound, setSound] = useState();
+  const [sound, setSound] = useState();
 
-    const ctx = useContext(TrainingScreenContext);
+  const [isPlaying, setIsPlaying] = useState();
 
-    async function playSound() {
-      console.log('Loading Sound');
+  const ctx = useContext(TrainingScreenContext);
+
+  async function onPress() {
+    if(isPlaying) {
+      sound.stopAsync();
+    } else {
       const { sound } = await Audio.Sound.createAsync(ctx.currentDrill.mediaUrl);
+
       setSound(sound);
-  
-      console.log('Playing Sound');
+
       await sound.playAsync();
     }
+  }
 
+
+  React.useEffect(() => {
+    if (sound) {
+      sound.setOnPlaybackStatusUpdate((playbackStatus) => {
+        if (playbackStatus.isPlaying) {
+          setIsPlaying(true);
+        } else {
+          setIsPlaying(false);
+        }
+      });
+    }
+
+    return sound
+      ? () => {
+        console.log('Unloading Soun2d');
+
+        sound.stopAsync();
+      }
+      : undefined;
+  }, [ctx.currentDrill, sound]);
 
   React.useEffect(() => {
     return sound
       ? () => {
-          console.log('Unloading Soun2d');
-          
-          sound.stopAsync();
-        }
+        console.log('Unloading Sound');
+        sound.unloadAsync();
+      }
       : undefined;
-  }, [ctx.currentDrill, sound]);
-  
-    React.useEffect(() => {
-      return sound
-        ? () => {
-          console.log('Unloading Sound');
-          sound.unloadAsync();
-        }
-        : undefined;
-    }, [sound]);
+  }, [sound]);
 
-    return (
-        <IconButton icon="play" size={50} onPress={playSound} mode="contained"> </IconButton>
-    );
+  const icon = isPlaying ? "pause" : "play";
+
+  return (
+    <IconButton icon={icon} size={50} onPress={onPress} mode="contained"> </IconButton>
+  );
 }
