@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import { View, StyleSheet } from 'react-native';
 
@@ -7,29 +7,19 @@ import { Audio } from 'expo-av';
 import { IconButton, ProgressBar } from 'react-native-paper';
 import ScalePlayerPlayButton from './ScalePlayerPlayButton';
 import ScalePlayerBottom from './ScalePlayerBottom';
+import { TrainingScreenContext } from './TrainingScreenContext';
 
 export default function ScalePlayer() {
 
-  const [sound, setSound] = React.useState();
+  const ctx = useContext(TrainingScreenContext);
 
-  async function playSound() {
-    console.log('Loading Sound');
-    const { sound } = await Audio.Sound.createAsync(require('../assets/foo.mp3'));
-    setSound(sound);
-
-    console.log('Playing Sound');
-    await sound.playAsync();
+  const nextDrill = () => {
+    ctx.nextDrill();
   }
 
-  React.useEffect(() => {
-    return sound
-      ? () => {
-        console.log('Unloading Sound');
-        sound.unloadAsync();
-      }
-      : undefined;
-  }, [sound]);
-
+  const prevDrill = () => {
+    ctx.prevDrill();
+  }
 
   return (
     <>
@@ -37,9 +27,9 @@ export default function ScalePlayer() {
         <ProgressBar progress={0.1} />
       </View>
       <View style={styles.flexHorizontal}>
-        <IconButton icon="skip-previous" size={30} onPress={playSound}> </IconButton>
+        <IconButton icon="skip-previous" size={30} onPress={prevDrill}> </IconButton>
         <ScalePlayerPlayButton />
-        <IconButton icon="skip-next" size={30} onPress={playSound}> </IconButton>
+        <IconButton icon="skip-next" size={30} onPress={nextDrill}> </IconButton>
       </View>
     </>
   )
