@@ -9,9 +9,9 @@ export const DefaultTrainingScreenContext = ({ children }) => {
             currentDrill: null,
             drills: [
                 {
-                    title: "goo/koo",
+                    title: "bubble",
                     subtitle: "Tenor major scale circular",
-                    coverUrl: "https://fakeimg.pl/500x500/edede9/21005d/?retina=1&font=museo&text=goo/koo",
+                    coverUrl: "https://fakeimg.pl/500x500/edede9/21005d/?retina=1&font=museo&text=bubble",
                     mediaUrl: require('../assets/foo.mp3'),
                 },
                 {
@@ -21,9 +21,9 @@ export const DefaultTrainingScreenContext = ({ children }) => {
                     mediaUrl: require('../assets/foo.mp3'),
                 },
                 {
-                    title: "goo/koo3",
+                    title: "siren",
                     subtitle: "Tenor major scale circular",
-                    coverUrl: "https://fakeimg.pl/500x500/edede9/21005d/?retina=1&font=museo&text=goo/koo",
+                    coverUrl: "https://fakeimg.pl/500x500/edede9/21005d/?retina=1&font=museo&text=siren",
                     mediaUrl: require('../assets/foo.mp3'),
                 }
             ]
