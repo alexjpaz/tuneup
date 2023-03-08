@@ -4,7 +4,9 @@ import { View, StyleSheet } from 'react-native';
 
 
 import { Audio } from 'expo-av';
-import { IconButton } from 'react-native-paper';
+import { IconButton, ProgressBar } from 'react-native-paper';
+import ScalePlayerPlayButton from './ScalePlayerPlayButton';
+import ScalePlayerBottom from './ScalePlayerBottom';
 
 export default function ScalePlayer() {
 
@@ -30,16 +32,23 @@ export default function ScalePlayer() {
 
 
   return (
-    <View style={styles.flexHorizontal}>
-      <IconButton icon="skip-previous" size={30} onPress={playSound}> </IconButton>
-
-      <IconButton icon="play" size={50} onPress={playSound} mode="contained"> </IconButton>
-      <IconButton icon="skip-next" size={30} onPress={playSound}> </IconButton>
-    </View>
+    <>
+      <View style={styles.progressBar}>
+        <ProgressBar progress={0.1} />
+      </View>
+      <View style={styles.flexHorizontal}>
+        <IconButton icon="skip-previous" size={30} onPress={playSound}> </IconButton>
+        <ScalePlayerPlayButton />
+        <IconButton icon="skip-next" size={30} onPress={playSound}> </IconButton>
+      </View>
+    </>
   )
 }
 
 const styles = StyleSheet.create({
+  progressBar: {
+    flex: 0.25,
+  },
   flexHorizontal: {
     flexDirection: 'row',
     alignItems: 'center',
