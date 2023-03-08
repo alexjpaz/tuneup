@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 
 import { View, StyleSheet } from 'react-native';
 
+import Slider from '@react-native-community/slider';
 
 import { Audio } from 'expo-av';
 import { IconButton, ProgressBar } from 'react-native-paper';
@@ -24,7 +25,15 @@ export default function ScalePlayer() {
   return (
     <>
       <View style={styles.progressBar}>
-        <ProgressBar progress={0.1} />
+
+<Slider
+  style={{width: 300, height: 40}}
+  minimumValue={0}
+  maximumValue={1}
+  minimumTrackTintColor="#aaa"
+  maximumTrackTintColor="#000000"
+/>
+
       </View>
       <View style={styles.flexHorizontal}>
         <IconButton icon="skip-previous" size={30} onPress={prevDrill}> </IconButton>
@@ -38,6 +47,9 @@ export default function ScalePlayer() {
 const styles = StyleSheet.create({
   progressBar: {
     flex: 0.25,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between'
   },
   flexHorizontal: {
     flexDirection: 'row',
