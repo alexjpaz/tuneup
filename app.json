@@ -32,6 +32,12 @@
         "projectId": "76352a50-d157-4a31-9fdc-ad90da94da15"
       }
     },
-    "owner": "alexjpaz"
+    "owner": "alexjpaz",
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/76352a50-d157-4a31-9fdc-ad90da94da15"
+    }
   }
 }
