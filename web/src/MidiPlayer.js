@@ -76,8 +76,8 @@ export default function MidiPlayer({ src, soundFont = "https://storage.googleapi
     }, [ iframeRef ]);
 
     return (
-        <div>
-            <div style={styles.container}>
+        <div style={styles.container}>
+            <div style={styles.iframeContainer}>
                 <iframe src={iframeUrl} style={styles.responseiveIframe} title="midi-player" scrolling="no" ref={iframeRef}></iframe>
             </div>
             <IconButton aria-label="delete" onClick={onPlayButtonClick} variant="contained">
@@ -90,6 +90,10 @@ export default function MidiPlayer({ src, soundFont = "https://storage.googleapi
 
 const styles = {
     container: {
+        position: "relative",
+        maxHeight: "40vh",
+    },
+    iframeContainer: {
         position: "relative",
         overflow: "hidden",
         width: "100%",
