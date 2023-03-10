@@ -16,31 +16,48 @@
     <script src="https://cdn.jsdelivr.net/combine/npm/tone@14.7.58,npm/@magenta/music@1.23.1/es6/core.js,npm/focus-visible@5,npm/html-midi-player@1.5.0"></script>
 
     <style>
-      .container {
+      .visualizer-container {
+        border: 1px solid red dashed;
+        height: 75vh;
         display: flex;
         align-items: center;
         justify-content: center;
-        height: 100vh;
       }
 
-      .viz {
-        display: none;
-        max-width: 75vw;
-        height: 50vh;
+      .visualizer-container midi-visualizer {
+
+      }
+
+      .visualizer-container midi-visualizer .piano-roll-visualizer {
+        background: #ffd;
+        height: 80vh;
+        width: 90vw;s
+        margin: 10px;
+      }
+      
+      .player-container {
+        position: fixed;
+        bottom: 0;
+        width: 100vw;
+        left: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 99999;
+      }
+
+      .player-container midi-player {
+        width: 90vw;
       }
 
     </style>
-    <div class="container">
-      <div class="box">
-        <midi-visualizer class="viz" type="piano-roll" id="main-midi-visualizer"></midi-visualizer>
-        <midi-player
-          id="player"
-          visualizer="#main-midi-visualizer">
-        </midi-player>
-        
-      </div>
+    <div class="player-container">
+      <midi-player id="player" visualizer="#main-midi-visualizer"></midi-player>
     </div>
 
+    <div class="visualizer-container">
+      <midi-visualizer class="viz" type="piano-roll" id="main-midi-visualizer"></midi-visualizer>
+    </div>
     <script>
       (function() {
         const player = document.querySelector('#player');
@@ -55,6 +72,20 @@
         player.soundFont = soundFont;
 
         visualizer.src = src;
+
+        setInterval(function() {
+          const activeNote = visualizer.querySelector('.note.active')
+          const visualizerDiv = visualizer.querySelector('.piano-roll-visualizer');
+
+          if(!activeNote) return;
+
+          console.log(activeNote.y.baseVal.valueAsString)
+
+
+          visualizerDiv.scrollTop = activeNote.y.baseVal.valueAsString - 20 ;
+          visualizerDiv.scrollLeft = activeNote.x.baseVal.valueAsString - 20 ;
+
+        }, 500);
         // visualizer2.src = src;
       })();
     </script>

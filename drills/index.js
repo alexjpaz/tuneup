@@ -5,27 +5,19 @@ const MidiWriter = require('midi-writer-js');
 
 const track = new MidiWriter.Track();
 
-const range = {
-  start: "G2",
-  end: "G4",
+const ranges = {
+  baritone: {
+    start: "G2",
+    end: "G4",
+  }
 };
 
 track.addEvent([
-  new MidiWriter.NoteEvent({pitch: ['C3'], duration: '1', velocity: '100'}),
-  new MidiWriter.NoteEvent({pitch: Scale.get("C3 major").notes, duration: '4', velocity: '100'}),
-  new MidiWriter.NoteEvent({pitch: ['C4'], duration: '4', velocity: '100'}),
-  new MidiWriter.NoteEvent({pitch: Scale.get("C3 major").notes.reverse(), duration: '4', velocity: '100'}),
-  new MidiWriter.NoteEvent({pitch: ['C3'], duration: '1', velocity: '100'}),
-new MidiWriter.NoteEvent({pitch: ['C3'], duration: '1', velocity: '100'}),
-  new MidiWriter.NoteEvent({pitch: Scale.get("C3 major").notes, duration: '4', velocity: '100'}),
-  new MidiWriter.NoteEvent({pitch: ['C4'], duration: '4', velocity: '100'}),
-  new MidiWriter.NoteEvent({pitch: Scale.get("C3 major").notes.reverse(), duration: '4', velocity: '100'}),
-  new MidiWriter.NoteEvent({pitch: ['C3'], duration: '1', velocity: '100'}),
-new MidiWriter.NoteEvent({pitch: ['C3'], duration: '1', velocity: '100'}),
-  new MidiWriter.NoteEvent({pitch: Scale.get("C6 major").notes, duration: '4', velocity: '100'}),
-  new MidiWriter.NoteEvent({pitch: ['C4'], duration: '4', velocity: '100'}),
-  new MidiWriter.NoteEvent({pitch: Scale.get("C3 major").notes.reverse(), duration: '4', velocity: '100'}),
-  new MidiWriter.NoteEvent({pitch: ['C3'], duration: '1', velocity: '100'}),
+  new MidiWriter.NoteEvent({pitch: Scale.get("C1 major").notes, duration: '1', velocity: '100'}),
+  new MidiWriter.NoteEvent({pitch: Scale.get("C2 major").notes, duration: '1', velocity: '100'}),
+  new MidiWriter.NoteEvent({pitch: Scale.get("C3 major").notes, duration: '1', velocity: '100'}),
+  new MidiWriter.NoteEvent({pitch: Scale.get("C4 major").notes, duration: '1', velocity: '100'}),
+  new MidiWriter.NoteEvent({pitch: Scale.get("C5 major").notes, duration: '1', velocity: '100'}),
 ], function(event, index) {
   return {sequential: true};
 });
