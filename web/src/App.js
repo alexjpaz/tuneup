@@ -1,23 +1,22 @@
 import logo from './logo.svg';
+import React from 'react';
 import './App.css';
+import MidiPlayer from './MidiPlayer';
 
 function App() {
+ 
+
+  const [ state, setState ] = React.useState("https://magenta.github.io/magenta-js/music/demos/melody.mid");
+
+  const onClick = () => {
+    setState("./test.mid");
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <midi-visualizer type="piano-roll" id="main-midi-visualizer2"></midi-visualizer>
+      <MidiPlayer src={state} />
+      <button onClick={onClick}>change</button>
     </div>
   );
 }
