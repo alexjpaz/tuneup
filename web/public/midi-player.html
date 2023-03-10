@@ -78,15 +78,11 @@
           const visualizerDiv = visualizer.querySelector('.piano-roll-visualizer');
 
           if(!activeNote) return;
-
-          console.log(activeNote.y.baseVal.valueAsString)
-
-
+          
           visualizerDiv.scrollTop = activeNote.y.baseVal.valueAsString - 20 ;
           visualizerDiv.scrollLeft = activeNote.x.baseVal.valueAsString - 20 ;
 
-        }, 500);
-        // visualizer2.src = src;
+        }, 500);  
       })();
     </script>
   </body>
