@@ -1,3 +1,5 @@
+// this script will generate a scale that will skip a given interval
+//
 const fs = require('fs');
 
 const { Interval, Note, Scale } = require("tonal");
