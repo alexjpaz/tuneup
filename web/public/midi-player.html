@@ -12,7 +12,9 @@
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
+
     <script src="https://cdn.jsdelivr.net/combine/npm/tone@14.7.58,npm/@magenta/music@1.23.1/es6/core.js,npm/focus-visible@5,npm/html-midi-player@1.5.0"></script>
+
     <style>
       .container {
         display: flex;
@@ -21,14 +23,16 @@
         height: 100vh;
       }
 
+      .viz {
+        display: none;
+        max-width: 75vw;
+        height: 50vh;
+      }
+
     </style>
     <div class="container">
       <div class="box">
-        <midi-visualizer type="piano-roll" id="main-midi-visualizer"></midi-visualizer>
-        <midi-visualizer
-          id="main-midi-visualizer-staff"
-          type="staff"
-        </midi-visualizer>
+        <midi-visualizer class="viz" type="piano-roll" id="main-midi-visualizer"></midi-visualizer>
         <midi-player
           id="player"
           visualizer="#main-midi-visualizer">
@@ -41,7 +45,6 @@
       (function() {
         const player = document.querySelector('#player');
         const visualizer = document.querySelector('#main-midi-visualizer');
-        const visualizer2 = document.querySelector('#main-midi-visualizer-staff');
 
         const searchParams = new URLSearchParams(location.search);
 
@@ -55,15 +58,5 @@
         // visualizer2.src = src;
       })();
     </script>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
-
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
   </body>
 </html>

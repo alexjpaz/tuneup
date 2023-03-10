@@ -6,7 +6,7 @@ import MidiPlayer from './MidiPlayer';
 function App() {
  
 
-  const [ state, setState ] = React.useState("https://magenta.github.io/magenta-js/music/demos/melody.mid");
+  const [ state, setState ] = React.useState("./test.mid");
 
   const onClick = () => {
     setState("./test.mid");
