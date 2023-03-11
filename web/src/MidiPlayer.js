@@ -110,8 +110,8 @@ export default function MidiPlayer({ src, soundFont = "https://storage.googleapi
     }, [ iframeRef ]);
 
     return (
-        <div style={styles.container}>
-            <div style={styles.iframeContainer}>
+        <div style={styles.none}>
+            <div style={styles.none}>
                 <iframe src={iframeUrl} style={styles.responseiveIframe} title="midi-player" scrolling="no" ref={iframeRef}></iframe>
             </div>
             <IconButton aria-label="delete" onClick={onPlayButtonClick} variant="contained">
@@ -123,6 +123,7 @@ export default function MidiPlayer({ src, soundFont = "https://storage.googleapi
 }
 
 const styles = {
+    none: {},
     container: {
         position: "relative",
         maxHeight: "40vh",
@@ -133,16 +134,18 @@ const styles = {
         width: "100%",
         paddingTop: "75%" /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
     },
+
     responseiveIframe: {
-        position: "absolute",
-        top: 0,
-        left: 0,
-        bottom: 0,
-        right: 0,
-        width: "100%",
+        // position: "absolute",
+        // top: 0,
+        // left: 0,
+        // bottom: 0,
+        // right: 0,
+        // width: "100%",
         border: 0,
-        height: "100%",
-        maxHeight: "50vh"
+        height: "50vh",
+        width: "60vw",
+        // maxHeight: "50vh"
     }
 
 }

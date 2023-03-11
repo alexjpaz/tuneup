@@ -12,7 +12,7 @@ function App() {
 
   return (
     <div className="App">
-      <div style={{ position: "relative", zIndex: -9999 }}>
+      <div >
         <MidiPlayer src={state} />
       </div>
       <div>
