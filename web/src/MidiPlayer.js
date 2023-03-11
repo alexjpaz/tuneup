@@ -11,15 +11,13 @@ export default function MidiPlayer({ src, soundFont = "https://storage.googleapi
     let iframeUrl = "/midi-player.html";
 
     const params = new URLSearchParams();
-    params.set("midiSrc", src);
-    params.set("soundfontSrc", soundFont);
+    // params.set("midiSrc", src);
+    // params.set("soundfontSrc", soundFont);
 
     iframeUrl = iframeUrl + "?" + params.toString();
 
     const onPlayButtonClick = () => {
         if(!iframeRef.current) return;
-
-        console.log(iframeRef.current)
 
         const playerNode = iframeRef
             .current
@@ -36,9 +34,44 @@ export default function MidiPlayer({ src, soundFont = "https://storage.googleapi
     React.useEffect(() => {
         if(!iframeRef.current) return;
 
+        const setSrc = () => {
+            const player = iframeRef
+                .current
+                .contentWindow
+                .document
+                .querySelector("#player");
+
+            const visualizer = iframeRef
+                .current
+                .contentWindow
+                .document
+                .querySelector("#main-midi-visualizer");
+
+            if(!player) return;
+            if(!visualizer) return;
+            
+            player.src = src;
+            visualizer.src = src;
+        }
+
+        console.log("foo", src);
+        setSrc();
+
+        const listener = iframeRef.current.addEventListener("load", setSrc);
+
+        return () => {
+            if(iframeRef.current) {
+                iframeRef.current.removeEventListener("load", listener);
+            }
+        }
+    }, [ iframeRef, src ]);
+
+    React.useEffect(() => {
+        if(!iframeRef.current) return;
+
         let observer;
 
-        iframeRef.current.onload = () => {
+        iframeRef.current.addEventListener("load", () => {
 
             const controlsNode = iframeRef
                 .current
@@ -68,7 +101,8 @@ export default function MidiPlayer({ src, soundFont = "https://storage.googleapi
             observer = new MutationObserver(callback);
 
             observer.observe(controlsNode, config);
-        }
+        });
+
         return () => {
             if(!observer) return;
             observer.disconnect();

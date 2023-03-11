@@ -1,6 +1,7 @@
-import logo from './logo.svg';
+
 import React from 'react';
 import './App.css';
+import DrillList from './DrillList';
 import MidiPlayer from './MidiPlayer';
 
 function App() {
@@ -11,7 +12,12 @@ function App() {
 
   return (
     <div className="App">
-      <MidiPlayer src={state} />
+      <div style={{ position: "relative", zIndex: -9999 }}>
+        <MidiPlayer src={state} />
+      </div>
+      <div>
+      <DrillList onSelected={setState} />
+      </div>
     </div>
   );
 }

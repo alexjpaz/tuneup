@@ -1,32 +1,23 @@
+
 const fs = require('fs');
 
-const { Interval, Note, Scale } = require("tonal");
-const MidiWriter = require('midi-writer-js');
-
-const track = new MidiWriter.Track();
-
-const ranges = {
-  baritone: {
-    start: "G2",
-    end: "G4",
-  }
+const manifest = {
+    drills: [],
 };
 
-track.addEvent([
-  new MidiWriter.NoteEvent({pitch: Scale.get("C1 major").notes, duration: '4', velocity: '100'}),
-  new MidiWriter.NoteEvent({pitch: Scale.get("C2 major").notes, duration: '4', velocity: '100'}),
-  new MidiWriter.NoteEvent({pitch: Scale.get("C3 major").notes, duration: '4', velocity: '100'}),
-  new MidiWriter.NoteEvent({pitch: Scale.get("C4 major").notes, duration: '4', velocity: '100'}),
-  new MidiWriter.NoteEvent({pitch: Scale.get("C5 major").notes, duration: '4', velocity: '100'}),
-], function(event, index) {
-  return {sequential: true};
+const ghostIntervalAscending = require("./common/ghost-interval-ascending");
+const ghostIntervalDescending = require("./common/ghost-interval-descending");
+
+["M2", "M3", "P5", "M7", "M9"].forEach((interval) => {
+    manifest.drills.push(ghostIntervalAscending.invoke({ interval }));
+    manifest.drills.push(ghostIntervalDescending.invoke({ interval }));
 });
 
-const write = new MidiWriter.Writer(track);
-
-
 try {
-  fs.writeFileSync('../web/public/test.mid', write.buildFile());
+    const path = `./output/manifest.js`
+    fs.writeFileSync(path, JSON.stringify(manifest, null, 2));
+
+    console.log("wrote ", path)
 } catch (err) {
-  console.error(err);
+    console.error(err);
 }
