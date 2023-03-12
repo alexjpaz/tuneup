@@ -71,14 +71,19 @@
         display: none;
       }
 
+      .visualizer-container {
+        overflow: auto;
+      }
+
     </style>
     <div class="player-container">
       <midi-player id="player" visualizer="#main-midi-visualizer"></midi-player>
     </div>
 
     <div class="visualizer-container">
-      <midi-visualizer class="viz" type="piano-roll" id="main-midi-visualizer"></midi-visualizer>
+      <midi-visualizer class="viz" type="waterfall" id="main-midi-visualizer"></midi-visualizer>
     </div>
+    
     <button class="center-button">◯</button>
     <script>
       (function() {
@@ -98,6 +103,12 @@
         document.querySelector('.center-button').addEventListener('click', function () {
           let targetNote = visualizer.querySelector('.note.active')
           const visualizerDiv = visualizer.querySelector('.piano-roll-visualizer');
+
+          const waterfallVisualizerDiv = visualizer.querySelector('.waterfall-notes-container');
+
+          if(waterfallVisualizerDiv) {
+             waterfallVisualizerDiv.scrollTop = 100000;
+          }
 
           if (!targetNote) {
             targetNote = visualizer.querySelector('.note:nth-of-type(1)');

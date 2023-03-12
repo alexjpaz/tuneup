@@ -128,6 +128,7 @@ export function useIframeStyling(iframeRef = {}) {
             visualizer.config = {
                 noteHeight: 10,
                 minPitch: 30,
+                showOnlyOctavesUsed: true,
             };
         });
 
