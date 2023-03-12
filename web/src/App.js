@@ -8,8 +8,9 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { indigo, pink } from '@mui/material/colors';
 
-import { Paper } from '@mui/material';
+import { Box, IconButton, Paper } from '@mui/material';
 import { Container } from '@mui/system';
+import { Menu as MenuIcon } from '@mui/icons-material';
 
 const darkTheme = createTheme({
   palette: {
@@ -34,6 +35,11 @@ function App() {
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline>
+        <Box sx={{position: "fixed", left: "1rem", top: "1rem"}}>
+          <IconButton>
+            <MenuIcon />
+          </IconButton>
+        </Box>
         <Container maxWidth="sm" style={styles.container}>
           <Paper sx={{flex: 4, overflow: "hidden", display: "flex"}} elevation={2}>
             <MidiPlayer src={state} />
@@ -42,6 +48,7 @@ function App() {
             <DrillList onSelected={onSelected} />
           </Paper>
         </Container>
+
       </CssBaseline>
     </ThemeProvider >
   );
