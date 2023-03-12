@@ -49,7 +49,8 @@ const invoke = () => {
   const write = new MidiWriter.Writer(track);
 
   return {
-    name: `Major Scale (Baritone)`,
+    name: `Interval Identification on Major Scale (Baritone)`,
+    description: "1-2-3-4-5-6-7-8 / do-re-mi-fa-so-la-ti-do",
     data: write.dataUri(),
   };
 
