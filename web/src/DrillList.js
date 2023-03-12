@@ -4,7 +4,7 @@ import { List, ListItemIcon, ListItemAvatar, ListSubheader, Avatar, ListItem, Li
 
 import { MusicNote, SkipNext, ExpandLess, ExpandMore, Folder, ErrorOutline } from '@mui/icons-material';
 
-import manifest from './manifest.json';
+import database from './database.json';
 
 export function findNextDrill(drills = {}, currentDrill = null) {
     const drillGroupKeys = Object.keys(drills);
@@ -27,7 +27,7 @@ export function findNextDrill(drills = {}, currentDrill = null) {
 
 const DrillList = ({ onSelected }) => {
 
-    const [currentDrill, setCurrentDrill] = React.useState(findNextDrill(manifest.drills));
+    const [currentDrill, setCurrentDrill] = React.useState(findNextDrill(database.drills));
 
     const onSelect = (drill, autoplay) => (e) => {
         e.stopPropagation();
@@ -43,7 +43,7 @@ const DrillList = ({ onSelected }) => {
     const onNextButtonClick = (e) => {
         e.stopPropagation();
 
-        let drill = findNextDrill(manifest.drills, currentDrill);
+        let drill = findNextDrill(database.drills, currentDrill);
 
         setCurrentDrill(drill);
 
@@ -53,7 +53,7 @@ const DrillList = ({ onSelected }) => {
         });
     };
 
-    const groupKeys = Object.keys(manifest.drills);
+    const groupKeys = Object.keys(database.drills);
 
     return (
         <ErrorBoundary>
@@ -68,7 +68,7 @@ const DrillList = ({ onSelected }) => {
             }
         >
             { groupKeys.map((groupKey) => (
-                <DrillListGroup drills={manifest.drills[groupKey]} currentDrill={currentDrill} onSelect={onSelect} key={groupKey}></DrillListGroup>
+                <DrillListGroup drills={database.drills[groupKey]} currentDrill={currentDrill} onSelect={onSelect} key={groupKey}></DrillListGroup>
             ))}
         </List>
         </ErrorBoundary>
