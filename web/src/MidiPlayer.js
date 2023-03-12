@@ -335,7 +335,7 @@ const styles = {
         // width: "100%",
         border: 0,
         height: "50vh",
-        width: "100vw",
+        width: "100%",
         // maxHeight: "50vh"
     }
 

@@ -13,20 +13,22 @@ const invoke = ({ interval }) => {
     
     let currentRootNote = start;
     
-    let semitoneIncrease = -1;
+    let semitoneIncrease = 1;
     
-    let semitones = 24;
+    let semitones = 0;
+    let maxSemitones = 24;
 
-    currentRootNote = Note.transpose(currentRootNote, Interval.fromSemitones(semitones));
+    let intervalGhost = interval;
+
+    currentRootNote = Note.transpose(currentRootNote, Interval.fromSemitones(Interval.semitones(intervalGhost)));
     currentRootNote = Note.simplify(currentRootNote);
     
     const events = [];
     
     events.push(new MidiWriter.NoteEvent({pitch: currentRootNote, duration: '1', velocity: '100'}));
     
-    let intervalGhost = interval;
     
-    while(--semitones > 0) {
+     while(semitones++ < maxSemitones) {
     
       events.push(new MidiWriter.NoteEvent({pitch: currentRootNote, duration: '2', velocity: '100'}));
       events.push(new MidiWriter.NoteEvent({pitch: currentRootNote, duration: '2', velocity: '100'}));
