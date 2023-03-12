@@ -9,6 +9,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { indigo, pink } from '@mui/material/colors';
 
 import { Paper } from '@mui/material';
+import { Container } from '@mui/system';
 
 const darkTheme = createTheme({
   palette: {
@@ -33,15 +34,15 @@ function App() {
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline>
-      <div styles={styles.App}>
-        <Paper style={styles.player}>
-          <MidiPlayer src={state} />
-        </Paper>
-        <Paper style={styles.list}>
-          <DrillList onSelected={onSelected} />
-        </Paper>
-      </div>
-     </CssBaseline>
+        <Container maxWidth="sm" sx={{ padding: 0 }}>
+            <Paper style={styles.player}>
+              <MidiPlayer src={state} />
+            </Paper>
+            <Paper style={styles.list}>
+              <DrillList onSelected={onSelected} />
+            </Paper>
+        </Container>
+      </CssBaseline>
     </ThemeProvider >
   );
 }
@@ -52,7 +53,7 @@ const styles = {
     flexDirection: "column"
   },
   player: {
-    
+
   },
   list: {
     maxHeight: "42vh", overflow: 'auto'
