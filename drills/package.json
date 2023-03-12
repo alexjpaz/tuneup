@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+      "build": "node index.js && cp output/manifest.js ../web/src/manifest.json"
+  },
   "dependencies": {},
   "devDependencies": {
     "midi-writer-js": "^2.1.4",

@@ -49,7 +49,7 @@ const invoke = ({ interval }) => {
     const write = new MidiWriter.Writer(track);
 
     return {
-      name: `ghost-interval-ascending-${intervalGhost}`,
+      name: `Ghost Interval by ${intervalGhost} (Ascending)`,
       data: write.dataUri(),
     };
 };

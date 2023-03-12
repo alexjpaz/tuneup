@@ -17,7 +17,6 @@
 
     <style>
       .visualizer-container {
-        border: 1px solid red dashed;
         height: 75vh;
         display: flex;
         align-items: center;
@@ -29,12 +28,13 @@
       }
 
       .visualizer-container midi-visualizer .piano-roll-visualizer {
-        background: #ffd;
+        /* background: #3f51b5; */
         height: 80vh;
-        width: 90vw;s
+        width: 90vw;
         margin: 10px;
       }
-      
+
+            
       .player-container {
         position: fixed;
         bottom: 0;
@@ -48,6 +48,11 @@
 
       .player-container midi-player {
         width: 90vw;
+      }
+
+      midi-player::part(control-panel) {
+          background: rgba(255, 255, 255, 0.25);
+          color: white;
       }
 
     </style>
@@ -79,8 +84,8 @@
 
           if(!activeNote) return;
           
-          visualizerDiv.scrollTop = activeNote.y.baseVal.valueAsString - 20 ;
-          visualizerDiv.scrollLeft = activeNote.x.baseVal.valueAsString - 20 ;
+     //     visualizerDiv.scrollTop = activeNote.y.baseVal.valueAsString - 20 ;
+       //   visualizerDiv.scrollLeft = activeNote.x.baseVal.valueAsString - 20 ;
 
         }, 500);  
       })();
