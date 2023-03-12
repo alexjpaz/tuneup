@@ -6,8 +6,9 @@ const manifest = {
       name: "Daily Guided Practice",
       items: []
     },
-    intervals: {
-      name: "Interval Practice",
+    ghost_intervals: {
+      name: "Ghost Interval Practice",
+      description: "Sing a root note and then find and hold the interval",
       items: []
     },
     other: {
@@ -24,8 +25,8 @@ const ghostIntervalAscending = require("./common/ghost-interval-ascending");
 const ghostIntervalDescending = require("./common/ghost-interval-descending");
 
 ["M2", "M3", "P5", "M7", "M9"].forEach((interval) => {
-  manifest.drills.intervals.items.push(ghostIntervalAscending.invoke({ interval }));
-  manifest.drills.intervals.items.push(ghostIntervalDescending.invoke({ interval }));
+  manifest.drills.ghost_intervals.items.push(ghostIntervalAscending.invoke({ interval }));
+  manifest.drills.ghost_intervals.items.push(ghostIntervalDescending.invoke({ interval }));
 });
 
 try {

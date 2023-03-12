@@ -50,6 +50,7 @@ const invoke = ({ interval }) => {
 
     return {
       name: `Ghost Interval by ${intervalGhost} (Ascending)`,
+      description: null,
       data: write.dataUri(),
     };
 };

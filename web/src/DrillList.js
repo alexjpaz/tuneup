@@ -100,7 +100,10 @@ export function DrillListGroup({ drills = { items:[] }, onSelect=() => {}, curre
                 <ListItemIcon>
                     <Folder />
                 </ListItemIcon>
-                <ListItemText primary={drills.name} />
+                <ListItemText 
+                    primary={drills.name}
+                    secondary={drills.description}
+                     />
                 {isOpen ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
             <Collapse in={isOpen}>
