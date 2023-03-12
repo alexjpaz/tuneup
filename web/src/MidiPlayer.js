@@ -130,7 +130,7 @@ export function useIframeStyling(iframeRef = {}) {
             };
         });
 
-        const currentRef = iframeRef;
+        const currentRef = iframeRef.current;
 
         return () => {
             if(currentRef) {
@@ -171,7 +171,7 @@ export function useMidiPlayerSrc(iframeRef, src) {
 
         const listener = iframeRef.current.addEventListener("load", setSrc);
 
-        const currentRef = iframeRef;
+        const currentRef = iframeRef.current;
 
         return () => {
             if(currentRef) {
