@@ -19,7 +19,7 @@ const invoke = () => {
   let finalIteration = false;
 
   let semitones = 0;
-  let maxSemitones = 14;
+  let maxSemitones = 13;
 
   while(semitones++ < maxSemitones) {
 

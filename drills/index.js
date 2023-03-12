@@ -28,7 +28,7 @@ manifest.drills.daily.items.push(chromaticBaritone.invoke());
 const ghostIntervalAscending = require("./common/ghost-interval-ascending");
 const ghostIntervalDescending = require("./common/ghost-interval-descending");
 
-["M2", "M3", "P5", "M7", "M9"].forEach((interval) => {
+["M2", "M3", "P5", "M7", "P8", "M9"].forEach((interval) => {
   manifest.drills.ghost_intervals.items.push(ghostIntervalAscending.invoke({ interval }));
   manifest.drills.ghost_intervals.items.push(ghostIntervalDescending.invoke({ interval }));
 });
