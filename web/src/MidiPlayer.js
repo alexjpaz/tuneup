@@ -125,6 +125,7 @@ export function useIframeStyling(iframeRef = {}) {
                     }
                 </style>`)
             ;            
+            
 
             visualizer.config = {
                 noteHeight: 10,
@@ -167,6 +168,22 @@ export function useMidiPlayerSrc(iframeRef, src) {
             
             player.src = src;
             visualizer.src = src;
+
+            setTimeout(() => { 
+                let targetNote = visualizer.querySelector('.note.active')
+                const visualizerDiv = visualizer.querySelector('.piano-roll-visualizer');
+    
+                if (!targetNote) {
+                    targetNote = visualizer.querySelector('.note:nth-of-type(1)');
+                }
+    
+                if (!targetNote) return;
+    
+                visualizerDiv.scrollTop = targetNote.y.baseVal.valueAsString - 20;
+                visualizerDiv.scrollLeft = targetNote.x.baseVal.valueAsString - 20;
+;
+            }, 100)
+
         }
 
         setSrc();
