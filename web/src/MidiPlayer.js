@@ -120,7 +120,9 @@ export function useIframeStyling(iframeRef = {}) {
                         stroke-width: 2;
                     }
 
-                   
+                    midi-player::part(play-button) {
+                        background-color: ${theme.palette.secondary[400]};
+                    }
                 </style>`)
             ;            
 

@@ -26,6 +26,7 @@
       .visualizer-container midi-visualizer {
 
       }
+      
 
       .visualizer-container midi-visualizer .piano-roll-visualizer {
         /* background: #3f51b5; */
@@ -55,6 +56,21 @@
           color: white;
       }
 
+      .center-button {
+        position: fixed;
+        right: 20px;
+        top: 20px;
+        border: 0;
+        background: rgba(255, 255, 255, 0.25);
+        border-radius: 20px;
+        height: 30px;
+        width: 30px;
+      }
+
+      .visualizer-container::-webkit-scrollbar{
+        display: none;
+      }
+
     </style>
     <div class="player-container">
       <midi-player id="player" visualizer="#main-midi-visualizer"></midi-player>
@@ -63,6 +79,7 @@
     <div class="visualizer-container">
       <midi-visualizer class="viz" type="piano-roll" id="main-midi-visualizer"></midi-visualizer>
     </div>
+    <button class="center-button">◯</button>
     <script>
       (function() {
         const player = document.querySelector('#player');
@@ -78,14 +95,18 @@
 
         visualizer.src = src;
 
-        setInterval(function() {
-          const activeNote = visualizer.querySelector('.note.active')
+        document.querySelector('.center-button').addEventListener('click', function () {
+          let targetNote = visualizer.querySelector('.note.active')
           const visualizerDiv = visualizer.querySelector('.piano-roll-visualizer');
 
-          if(!activeNote) return;
-          
-     //     visualizerDiv.scrollTop = activeNote.y.baseVal.valueAsString - 20 ;
-       //   visualizerDiv.scrollLeft = activeNote.x.baseVal.valueAsString - 20 ;
+          if (!targetNote) {
+            targetNote = visualizer.querySelector('.note:nth-of-type(1)');
+          }
+
+          if (!targetNote) return;
+
+          visualizerDiv.scrollTop = targetNote.y.baseVal.valueAsString - 20;
+          visualizerDiv.scrollLeft = targetNote.x.baseVal.valueAsString - 20;
 
         }, 500);  
       })();
