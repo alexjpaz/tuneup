@@ -21,6 +21,10 @@ const majorScaleBaritone = require('./daily/major-scale-baritone');
 
 manifest.drills.daily.items.push(majorScaleBaritone.invoke());
 
+const chromaticBaritone = require('./daily/chromatic-baritone');
+
+manifest.drills.daily.items.push(chromaticBaritone.invoke());
+
 const ghostIntervalAscending = require("./common/ghost-interval-ascending");
 const ghostIntervalDescending = require("./common/ghost-interval-descending");
 
