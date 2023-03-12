@@ -27,7 +27,7 @@ export function findNextDrill(drills = {}, currentDrill = null) {
 
 const DrillList = ({ onSelected }) => {
 
-    const [currentDrill, setCurrentDrill] = React.useState(findNextDrill(database.drills));
+    const [currentDrill, setCurrentDrill] = React.useState();
 
     const onSelect = (drill, autoplay) => (e) => {
         e.stopPropagation();
@@ -52,6 +52,19 @@ const DrillList = ({ onSelected }) => {
             drill
         });
     };
+
+    React.useEffect(() => {
+        if(!currentDrill) {
+            let drill = findNextDrill(database.drills, currentDrill);
+
+            setCurrentDrill(drill);
+
+            onSelected({
+                autoplay: true,
+                drill
+            });
+        }
+    }, [ currentDrill, onSelected ]);
 
     const groupKeys = Object.keys(database.drills);
 

@@ -23,8 +23,6 @@ function useMidiPlayerAutoPlay(iframeRef) {
                 .querySelector('button.play')
             ;
 
-            console.log(playerNode)
-
             playerNode.click();
         }
     }, [ iframeRef, isReady ]);
@@ -212,11 +210,7 @@ export default function MidiPlayer({ src, soundFont = "https://storage.googleapi
     useMidiPlayerAutoPlay(iframeRef);
 
     return (
-        <div style={styles.none}>
-            <div style={styles.none}>
-                <iframe src={iframeUrl} style={styles.responseiveIframe} title="midi-player" scrolling="no" ref={iframeRef}></iframe>
-            </div>
-        </div>
+        <iframe src={iframeUrl} style={styles.responseiveIframe} title="midi-player" scrolling="no" ref={iframeRef}></iframe>
     );
 }
 
@@ -317,7 +311,7 @@ const styles = {
     none: {},
     container: {
         position: "relative",
-        maxHeight: "40vh",
+
     },
     iframeContainer: {
         position: "relative",
@@ -327,16 +321,10 @@ const styles = {
     },
 
     responseiveIframe: {
-        // position: "absolute",
-        // top: 0,
-        // left: 0,
-        // bottom: 0,
-        // right: 0,
-        // width: "100%",
+
+        flexDirection: "row",
+        flex: 1,
         border: 0,
-        height: "50vh",
-        width: "100%",
-        // maxHeight: "50vh"
     }
 
 }

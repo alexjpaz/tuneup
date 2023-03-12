@@ -24,7 +24,7 @@ const darkTheme = createTheme({
 
 function App() {
 
-  const [state, setState] = React.useState("./test.mid");
+  const [state, setState] = React.useState();
 
   const onSelected = (action) => {
     setState(action.drill.data);
@@ -34,29 +34,52 @@ function App() {
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline>
-        <Container maxWidth="sm" sx={{ padding: 0 }}>
-            <Paper style={styles.player}>
-              <MidiPlayer src={state} />
-            </Paper>
-            <Paper style={styles.list}>
-              <DrillList onSelected={onSelected} />
-            </Paper>
+        <Container maxWidth="sm" style={styles.container}>
+          <Paper sx={{flex: 4, overflow: "hidden", display: "flex"}} elevation={2}>
+            <MidiPlayer src={state} />
+          </Paper>
+          <Paper sx={{flex:  5, overflow: "auto"}} elevation={12}>
+            <DrillList onSelected={onSelected} />
+          </Paper>
         </Container>
       </CssBaseline>
     </ThemeProvider >
   );
 }
 
+
+/*
+<Paper style={styles.player}>
+              <MidiPlayer src={state} />
+            </Paper>
+            <Paper style={styles.list}>
+            </Paper>
+*/
+
 const styles = {
-  App: {
+  container: {
+     height: "100vh",
     display: "flex",
-    flexDirection: "column"
+    flexDirection: "column",
+    padding: 0,
+    
   },
-  player: {
+  flex: {
+    display: "flex",
 
   },
+  flexChild: {
+    flex: 1,
+  },
+
+  player: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+  },
   list: {
-    maxHeight: "42vh", overflow: 'auto'
+    flexDirection: "row",
+    flexWrap: "wrap",
+    overflow: 'auto'
   }
 }
 
