@@ -25,9 +25,13 @@ const invoke = () => {
 
     let scale = Scale.get(`${currentRootNote} major`).notes;
 
+    let ocataveNote = Note.transpose(currentRootNote, Interval.fromSemitones(12));
+
+    scale.push(ocataveNote);
+
     events.push(new MidiWriter.NoteEvent({pitch: scale[0], duration: '2', velocity: '100'}));
 
-    for(let i=2;i<8;i++) {
+    for(let i=2;i<scale.length + 1; i++) {
 
       events.push(new MidiWriter.NoteEvent({pitch: scale.slice(0,i), duration: '4', velocity: '100'}));
 
