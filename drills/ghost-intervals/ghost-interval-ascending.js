@@ -1,7 +1,7 @@
 // this script will generate a scale that will skip a given interval
 const fs = require('fs');
 
-const ranges = require('./ranges');
+const ranges = require('../common/ranges');
 
 const { Interval, Note, Scale } = require("tonal");
 const MidiWriter = require('midi-writer-js');
