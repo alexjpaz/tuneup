@@ -1,3 +1,4 @@
+name: "Build Expo Project"
 on:
   push:
     branches:
