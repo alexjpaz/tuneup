@@ -25,6 +25,10 @@ const chromaticBaritone = require('./daily/chromatic-baritone');
 
 manifest.drills.daily.items.push(chromaticBaritone.invoke());
 
+manifest.drills.daily.items.push(require("./daily/octave-half").invoke());
+manifest.drills.daily.items.push(require("./daily/octave-half-repeat").invoke());
+manifest.drills.daily.items.push(require("./daily/octave-half-triple").invoke());
+
 require("./ghost-intervals")(manifest);
 
 try {
