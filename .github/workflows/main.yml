@@ -1,6 +1,8 @@
 name: "Build Expo Project"
 on:
   push:
+    paths:
+      - expo
     branches:
       - main
 jobs:
