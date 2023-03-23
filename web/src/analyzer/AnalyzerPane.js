@@ -1,4 +1,3 @@
-import { refType } from '@mui/utils';
 import { AnalyzerChart } from './AnalyzerChart';
 import { AnalyzerNeedsAccess } from './AnalyzerNeedsAccess';
 import { useMicrophoneStreamAnalyser } from './useMicrophoneStreamAnalyser';
