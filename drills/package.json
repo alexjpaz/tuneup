@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-      "build": "node index.js && cp output/manifest.js ../web/src/database.json"
+      "build": "node src/index.js && cp output/manifest.js ../web/src/database.json"
   },
   "dependencies": {},
   "devDependencies": {

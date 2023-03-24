@@ -21,6 +21,9 @@ module.exports = (manifest) => {
   manifest.drills.ghost_intervals = manifest.drills.ghost_intervals || {};
   manifest.drills.ghost_intervals.items = manifest.drills.ghost_intervals.items || [];
 
+  manifest.drills.ghost_intervals.name = "Ghost Interval Practice";
+  manifest.drills.ghost_intervals.description = "Sing a root note and then find and hold the interval";
+
   Object.keys(intervals).forEach((interval) => {
     const ascending = ghostIntervalAscending.invoke({ interval });
     ascending.description = intervals[interval].ascending;
