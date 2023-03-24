@@ -35,12 +35,12 @@ function App() {
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline>
-        <Box sx={{position: "fixed", left: "1rem", top: "1rem"}}>
+        <Box sx={{position: "fixed", left: "1rem", top: "1rem"}} data-testid="main-menu">
           <IconButton>
             <MenuIcon />
           </IconButton>
         </Box>
-        <Container maxWidth="sm" style={styles.container}>
+        <Container maxWidth="sm" style={styles.container} data-testid="main-container">
           <Paper sx={{flex: 4, overflow: "hidden", display: "flex"}} elevation={2}>
             <MidiPlayer src={state} />
           </Paper>
@@ -48,7 +48,6 @@ function App() {
             <DrillList onSelected={onSelected} />
           </Paper>
         </Container>
-
       </CssBaseline>
     </ThemeProvider >
   );

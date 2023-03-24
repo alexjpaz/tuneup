@@ -3,6 +3,18 @@ import App from './App';
 
 describe("renders basic components of the app", () => {
   
+  test('Main Container', () => {
+    render(<App />);
+    const linkElement = screen.getByTestId(/main-container/i);
+    expect(linkElement).toBeInTheDocument();
+  });
+
+  test('Main Menu', () => {
+    render(<App />);
+    const linkElement = screen.getByTestId(/main-menu/i);
+    expect(linkElement).toBeInTheDocument();
+  });
+  
   test('Daily Guided Practice', () => {
     render(<App />);
     const linkElement = screen.getByText(/Daily Guided Practice/i);
