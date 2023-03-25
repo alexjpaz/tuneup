@@ -1,6 +1,25 @@
 import React from 'react';
 import { useTheme } from '@mui/material/styles';
 
+function styleLandmarkNote(theme, pitch) {
+    return `
+        .visualizer-container midi-visualizer svg.waterfall-piano rect[data-pitch="${pitch}"] {
+            fill: ${theme.palette.primary[200]};
+        }
+
+        .visualizer-container midi-visualizer svg.waterfall-piano rect.active[data-pitch="${pitch}"] {
+            fill: ${theme.palette.secondary[400]};
+        }
+
+        .visualizer-container midi-visualizer svg.waterfall-notes rect[data-pitch="${pitch}"] {
+            fill: ${theme.palette.primary[700]};
+        }
+
+        .visualizer-container midi-visualizer svg.waterfall-notes rect.active[data-pitch="${pitch}"] {
+            fill: ${theme.palette.secondary[400]};
+        }
+    `;
+}
 
 
 export function useIframeStyling(iframeRef = {}) {
@@ -38,11 +57,17 @@ export function useIframeStyling(iframeRef = {}) {
 
                         stroke-width: 2;
                     }
-
+ 
                     .visualizer-container midi-visualizer svg rect.note.active {
                         fill: ${theme.palette.secondary[400]};
                         stroke-width: 2;
                     }
+
+                    ${styleLandmarkNote(theme, "43")}
+                    ${styleLandmarkNote(theme, "59")  /* Bb3 passagio */ }
+                    ${styleLandmarkNote(theme, "63")  /* Eb4 passagio */ }
+                    ${styleLandmarkNote(theme, "68")  /* Ab4 passagio */ }
+                    ${styleLandmarkNote(theme, "67")  /* G4 top */ }
 
                     midi-player::part(play-button) {
                         background-color: ${theme.palette.secondary[400]};
