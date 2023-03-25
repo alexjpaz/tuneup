@@ -15,9 +15,12 @@ jobs:
 
       - name: 📦 Install dependencies
         run: yarn install
+        working-directory: ./drills
 
       - name: 🤔 Test project
         run: yarn test
+        working-directory: ./drills
 
       - name: 🥕 Build project
         run: yarn build
+        working-directory: ./drills
