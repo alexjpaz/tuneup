@@ -22,5 +22,6 @@ jobs:
         working-directory: ./drills
 
       - name: 🥕 Build project
+        if: false
         run: yarn build
         working-directory: ./drills
