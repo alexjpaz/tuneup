@@ -1,8 +1,5 @@
 name: "Test Drills"
-on:
-  pull_request:
-    paths:
-    - drills
+on: push
 jobs:
   preview:
     runs-on: ubuntu-latest
