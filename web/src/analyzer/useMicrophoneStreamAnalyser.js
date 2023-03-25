@@ -23,6 +23,7 @@ export function useMicrophoneStreamAnalyser() {
                 const source = audioCtx.createMediaStreamSource(stream);
 
                 const analyser = audioCtx.createAnalyser();
+                analyser.maxDecibels = -10;
                 analyser.minDecibels = -100;
                 analyser.smoothingTimeConstant = 0.85;
 
