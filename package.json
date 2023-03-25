@@ -7,8 +7,11 @@
   "license": "MIT",
   "private": true,
   "workspaces": [
-      "web",
-      "drills",
-      "expo"
-  ]
+    "web",
+    "drills",
+    "expo"
+  ],
+  "dependencies": {
+    "pitchy": "^4.0.7"
+  }
 }

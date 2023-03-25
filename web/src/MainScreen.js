@@ -7,6 +7,7 @@ import MidiPlayer from './MidiPlayer';
 import { Box, IconButton, Paper } from '@mui/material';
 import { Container } from '@mui/system';
 import { Menu as MenuIcon } from '@mui/icons-material';
+import AnalyzerPane from './analyzer/AnalyzerPane';
 
 function MainScreen() {
 
@@ -29,6 +30,7 @@ function MainScreen() {
                     <MidiPlayer src={state} />
                 </Paper>
                 <Paper sx={styles.bottomFlex} elevation={12}>
+                    <AnalyzerPane />
                     <DrillList onSelected={onSelected} />
                 </Paper>
             </Container>
