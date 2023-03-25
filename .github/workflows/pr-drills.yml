@@ -1,7 +1,7 @@
 name: "Test Drills"
 on: push
 jobs:
-  preview:
+  test-and-build:
     runs-on: ubuntu-latest
     steps:
       - name: 🏗 Setup repo
