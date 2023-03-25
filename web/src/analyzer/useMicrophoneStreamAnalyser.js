@@ -20,6 +20,8 @@ export function useMicrophoneStreamAnalyser() {
 
                 const audioCtx = new AudioContext();
 
+                console.log(audioCtx)
+
                 const source = audioCtx.createMediaStreamSource(stream);
 
                 const analyser = audioCtx.createAnalyser();
