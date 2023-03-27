@@ -6,7 +6,9 @@ module.exports = function (manifest = {}) {
 
     manifest.drills.daily.name = "Daily Guided Practice";
 
-    manifest.drills.daily.items.push(require('./ 1 - bubble').invoke());
+    manifest.drills.daily.items.push(require('./1 - bubble').invoke());
+
+    manifest.drills.daily.items.push(require('./2 - bass hold').invoke());
 
     const majorScaleBaritone = require('./major-scale-baritone');
     

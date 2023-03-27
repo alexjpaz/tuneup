@@ -1,5 +1,31 @@
 const { Interval, Note } = require("tonal");
 
+exports.stepChord = (currentNote) => {
+    return {
+        pitch: [
+            currentNote,
+            Note.transpose(currentNote, "m3"),
+            Note.transpose(currentNote, "P5")
+        ],
+        duration: ['2'],
+        velocity: '100',
+        sequential: false,
+    };
+};
+
+exports.endChord = (currentNote) => {
+    return {
+        pitch: [
+            currentNote,
+            Note.transpose(currentNote, "M3"),
+            Note.transpose(currentNote, "P5")
+        ],
+        duration: ['1','1'],
+        velocity: '100',
+        sequential: false,
+    };
+};
+
 exports.createScale = (startNote, endNote) => {
     if (!startNote) {
         throw new Error("start note must not be null");
@@ -13,24 +39,15 @@ exports.createScale = (startNote, endNote) => {
 
     let currentNote = startNote;
 
-    let isAtTheEndOfTheScale = false;
-
-    events.push({
-        pitch: currentNote,
-        duration: '1',
-        velocity: '100',
-    });
+    // events.push(exports.endChord(currentNote));
 
     while (currentNote !== null) {
 
-        const event = {
-            pitch: currentNote,
-            duration: '2',
-            velocity: '100',
-        };
+        events.push(exports.stepChord(currentNote));
 
-        events.push(event);
-
+        events.push({ pitch: currentNote, duration: '2', velocity: '100', });
+        events.push({ pitch: currentNote, duration: '2', velocity: '100', });
+        events.push({ pitch: currentNote, duration: '2', velocity: '100', });
 
         if (Interval.get(Interval.distance(endNote, currentNote)).semitones < 0) {
             currentNote = Note.transpose(currentNote, Interval.fromSemitones(1));
@@ -40,11 +57,7 @@ exports.createScale = (startNote, endNote) => {
         }
     }
 
-    events.push({
-        pitch: endNote,
-        duration: '1',
-        velocity: '100',
-    });
-
+    events.push(exports.endChord(endNote));
+console.log(events);
     return events;
 };
