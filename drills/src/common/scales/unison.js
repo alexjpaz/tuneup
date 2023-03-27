@@ -58,6 +58,6 @@ exports.createScale = (startNote, endNote) => {
     }
 
     events.push(exports.endChord(endNote));
-console.log(events);
+
     return events;
 };
