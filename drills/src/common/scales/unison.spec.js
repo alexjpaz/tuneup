@@ -12,6 +12,7 @@ test('create scale', () => {
         ],
         velocity: "100",
         sequential: false,
+        wait: "16",
     });
     
     expect(scale[1]).toEqual({

@@ -1,30 +1,6 @@
 const { Interval, Note } = require("tonal");
 
-exports.stepChord = (currentNote) => {
-    return {
-        pitch: [
-            currentNote,
-            Note.transpose(currentNote, "m3"),
-            Note.transpose(currentNote, "P5")
-        ],
-        duration: ['2'],
-        velocity: '100',
-        sequential: false,
-    };
-};
-
-exports.endChord = (currentNote) => {
-    return {
-        pitch: [
-            currentNote,
-            Note.transpose(currentNote, "M3"),
-            Note.transpose(currentNote, "P5")
-        ],
-        duration: ['1','1'],
-        velocity: '100',
-        sequential: false,
-    };
-};
+const { stepChord, endChord } = require("../utils");
 
 exports.createScale = (startNote, endNote) => {
     if (!startNote) {
@@ -43,7 +19,7 @@ exports.createScale = (startNote, endNote) => {
 
     while (currentNote !== null) {
 
-        events.push(exports.stepChord(currentNote));
+        events.push(stepChord(currentNote));
 
         events.push({ pitch: currentNote, duration: '2', velocity: '100', });
         events.push({ pitch: currentNote, duration: '2', velocity: '100', });
@@ -57,7 +33,7 @@ exports.createScale = (startNote, endNote) => {
         }
     }
 
-    events.push(exports.endChord(endNote));
+    events.push(endChord(endNote));
 
     return events;
 };

@@ -1,6 +1,5 @@
 const { Interval, Note, Scale } = require("tonal");
 
-
 const ranges = {
   bass: {
     start: "E2",
