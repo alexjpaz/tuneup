@@ -10,6 +10,8 @@ module.exports = function (manifest = {}) {
 
     manifest.drills.daily.items.push(require('./2 - bass hold').invoke());
 
+    manifest.drills.daily.items.push(require('./3 - octave swing').invoke());
+
     const majorScaleBaritone = require('./major-scale-baritone');
     
     manifest.drills.daily.items.push(majorScaleBaritone.invoke());
