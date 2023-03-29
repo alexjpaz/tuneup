@@ -2,16 +2,15 @@ const ranges = require('../common/ranges');
 
 const MidiWriter = require('midi-writer-js');
 
-const unison = require('../common/scales/unison');
+const { createScale } = require('../common/scales/chromatic');
 
 const invoke = () => {
-
     const track = new MidiWriter.Track();
 
     const start = ranges.bass.start;
-    const end = ranges.baritone.end;
+    const end = ranges.bass.end;
 
-    let scale = unison.createScale(start, end);
+    let scale = createScale(start, end);
 
     let events = scale.map((event) => new MidiWriter.NoteEvent(event));
 
@@ -20,8 +19,8 @@ const invoke = () => {
     const write = new MidiWriter.Writer(track);
 
     return {
-        name: `2. Bass Hold`,
-        description: "Hold Vowels (AH, AA)",
+        name: `3. Bass Gug`,
+        description: "Gug",
         data: write.dataUri(),
     };
 

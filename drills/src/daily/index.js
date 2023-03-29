@@ -6,17 +6,25 @@ module.exports = function (manifest = {}) {
 
     manifest.drills.daily.name = "Daily Guided Practice";
 
-    manifest.drills.daily.items.push(require('./1 - bubble').invoke());
+    var normalizedPath = require("path").join(__dirname, "./");
 
-    manifest.drills.daily.items.push(require('./2 - bass hold').invoke());
+    require("fs").readdirSync(normalizedPath).forEach(function(file) {
+        const mod = require('./'+file);
 
-    manifest.drills.daily.items.push(require('./3 - octave swing').invoke());
+        if(mod.invoke) {
+            manifest.drills.daily.items.push(mod.invoke());
+        }
+    });
+
+
+
+    return ;
 
     const majorScaleBaritone = require('./major-scale-baritone');
     
     manifest.drills.daily.items.push(majorScaleBaritone.invoke());
     
-    const chromaticBaritone = require('./chromatic-baritone');
+    const chromaticBaritone = require('./3 - bass gug');
     
     manifest.drills.daily.items.push(chromaticBaritone.invoke());
     

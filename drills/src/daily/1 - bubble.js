@@ -7,7 +7,10 @@ const bubble = require('../common/scales/bubble');
 const invoke = () => {
     const track = new MidiWriter.Track();
 
-    let scale = bubble.createScale(ranges.baritone.start, ranges.tenor.end);
+    const start = ranges.baritone.start;
+    const end = ranges.tenor.end;
+
+    let scale = bubble.createScale(start, end);
 
     let events = scale.map((event) => new MidiWriter.NoteEvent(event));
 
@@ -17,7 +20,7 @@ const invoke = () => {
 
     return {
         name: `1. Bubble`,
-        description: "Warmup with Bubble / Raspberry / VVV",
+        description: `Warmup with Bubble / Raspberry / VVV (${start}-${end})`,
         data: write.dataUri(),
     };
 
