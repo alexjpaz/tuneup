@@ -4,13 +4,13 @@ const { Interval, Note, Scale } = require("tonal");
 const MidiWriter = require('midi-writer-js');
 
 const unison = require('../common/scales/unison');
+const { baritone } = require('../common/ranges');
 
 const invoke = () => {
-    const { start, end } = ranges.baritone;
-
+    
     const track = new MidiWriter.Track();
 
-    let scale = unison.createScale(start, end);
+    let scale = unison.createScale(ranges.bass.start, ranges.baritone.end);
 
     let events = scale.map((event) => new MidiWriter.NoteEvent(event));
 

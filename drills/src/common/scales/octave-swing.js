@@ -15,6 +15,8 @@ exports.createScale = (startNote, endNote) => {
 
     let currentNote = startNote;
 
+    let lastNote = null;
+
     while (currentNote !== null) {
 
         events.push(stepChord(currentNote));
@@ -25,15 +27,37 @@ exports.createScale = (startNote, endNote) => {
         events.push({ pitch: octaveNote, duration: '2', velocity: '100',  });
         events.push({ pitch: currentNote, duration: 'd2', velocity: '100',  });
 
-        if (Interval.get(Interval.distance(endNote, currentNote)).semitones < 0) {
+        if (Interval.get(Interval.distance(endNote, octaveNote)).semitones < 0) {
             currentNote = Note.transpose(currentNote, Interval.fromSemitones(1));
             currentNote = Note.simplify(currentNote);
         } else {
+            lastNote = currentNote;
             currentNote = null;
         }
     }
 
-    events.push(endChord(endNote));
+    currentNote = lastNote;
+
+    while (currentNote !== null) {
+
+        events.push(stepChord(currentNote));
+
+        const octaveNote = Note.transpose(currentNote, Interval.fromSemitones(12));
+
+        events.push({ pitch: currentNote, duration: '2', velocity: '100',  });
+        events.push({ pitch: octaveNote, duration: '2', velocity: '100',  });
+        events.push({ pitch: currentNote, duration: 'd2', velocity: '100',  });
+
+        if (Interval.get(Interval.distance(currentNote, startNote)).semitones < 0) {
+            currentNote = Note.transpose(currentNote, Interval.fromSemitones(-1));
+            currentNote = Note.simplify(currentNote);
+        } else {
+            lastNote = currentNote;
+            currentNote = null;
+        }
+    }
+
+    events.push(endChord(lastNote));
     
     return events;
 };

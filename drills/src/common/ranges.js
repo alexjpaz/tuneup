@@ -9,7 +9,7 @@ const ranges = {
     start: "G2",
     end: "G4",
   },
-  baritone: {
+  tenor: {
     start: "C3",
     end: "C5",
   },

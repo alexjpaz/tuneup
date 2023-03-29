@@ -6,11 +6,10 @@ const MidiWriter = require('midi-writer-js');
 const unison = require('../common/scales/octave-swing');
 
 const invoke = () => {
-    const { start, end } = ranges.baritone;
 
     const track = new MidiWriter.Track();
 
-    let scale = unison.createScale(start, end);
+    let scale = unison.createScale(ranges.tenor.start, ranges.tenor.end);
 
     let events = scale.map((event) => new MidiWriter.NoteEvent(event));
 

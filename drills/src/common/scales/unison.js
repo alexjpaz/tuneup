@@ -15,8 +15,6 @@ exports.createScale = (startNote, endNote) => {
 
     let currentNote = startNote;
 
-    // events.push(exports.endChord(currentNote));
-
     while (currentNote !== null) {
 
         events.push(stepChord(currentNote));
