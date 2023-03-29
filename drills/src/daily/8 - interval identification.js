@@ -19,29 +19,26 @@ const invoke = () => {
   let finalIteration = false;
 
   let semitones = 0;
-  let maxSemitones = 13;
+  let maxSemitones = 6;
 
   while(semitones++ < maxSemitones) {
 
-    let scale = [
-        currentRootNote,
-        Note.transpose(currentRootNote, Interval.get("M3")),
-        Note.transpose(currentRootNote, Interval.get("P5")),
-    ];
-    
+    let scale = Scale.get(`${currentRootNote} major`).notes;
+
     let ocataveNote = Note.transpose(currentRootNote, Interval.fromSemitones(12));
 
-    for(let i=0; i < 3; i++) {
-        scale.push(ocataveNote);
+    scale.push(ocataveNote);
+
+    events.push(new MidiWriter.NoteEvent({pitch: scale[0], duration: '2', velocity: '100'}));
+
+    for(let i=2;i<scale.length + 1; i++) {
+
+      events.push(new MidiWriter.NoteEvent({pitch: scale.slice(0,i), duration: '4', velocity: '100'}));
+
+      events.push(new MidiWriter.NoteEvent({pitch: scale.slice(1,i-1).reverse(), duration: '4', velocity: '100'}));
+
+      events.push(new MidiWriter.NoteEvent({pitch: scale[0], duration: '2', velocity: '100'}));
     }
-
-    events.push(new MidiWriter.NoteEvent({pitch: scale[0], duration: '2', velocity: '100'}));
-
-    events.push(new MidiWriter.NoteEvent({pitch: scale, duration: 'd8', velocity: '100'}));
-
-    events.push(new MidiWriter.NoteEvent({pitch: scale.slice(1,scale.length - 2).reverse(), duration: 'd8', velocity: '100'}));
-
-    events.push(new MidiWriter.NoteEvent({pitch: scale[0], duration: '2', velocity: '100'}));
 
     currentRootNote = Note.transpose(currentRootNote, Interval.fromSemitones(semitoneIncrease));
 
@@ -56,8 +53,8 @@ const invoke = () => {
   const write = new MidiWriter.Writer(track);
 
   return {
-    name: `Octave and half scale repeat (Baritone)`,
-    description: "Huh-Nng / Nay",
+    name: `8. Interval Identification on Major Scale (Baritone)`,
+    description: "1-2-3-4-5-6-7-8 / do-re-mi-fa-so-la-ti-do",
     data: write.dataUri(),
   };
 

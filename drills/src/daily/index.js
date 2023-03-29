@@ -20,7 +20,7 @@ module.exports = function (manifest = {}) {
 
     return ;
 
-    const majorScaleBaritone = require('./major-scale-baritone');
+    const majorScaleBaritone = require('./8 - interval identification');
     
     manifest.drills.daily.items.push(majorScaleBaritone.invoke());
     
@@ -29,6 +29,6 @@ module.exports = function (manifest = {}) {
     manifest.drills.daily.items.push(chromaticBaritone.invoke());
     
     manifest.drills.daily.items.push(require("./octave-half").invoke()); 
-    manifest.drills.daily.items.push(require("./octave-half-repeat").invoke());
+    manifest.drills.daily.items.push(require("./ Nay").invoke());
     manifest.drills.daily.items.push(require("./octave-half-triple").invoke());
 };
