@@ -21,6 +21,8 @@ const invoke = () => {
 
     return {
         name: `4. Octave Swing`,
+        start,
+        end,
         description: "Sing EE and switch to AH",
         data: write.dataUri(),
     };

@@ -21,6 +21,8 @@ const invoke = () => {
 
     return {
         name: `1. Bubble`,
+        start,
+        end,
         description: `Warmup with Bubble / Raspberry / VVV (${start}-${end})`,
         data: write.dataUri(),
     };

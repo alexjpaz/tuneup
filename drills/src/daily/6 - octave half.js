@@ -21,6 +21,8 @@ const invoke = () => {
 
   return {
     name: `6. Octave and half scale (Baritone)`,
+    start,
+    end,
     description: "Huh-Nng / Nay",
     data: write.dataUri(),
   };

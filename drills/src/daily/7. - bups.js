@@ -7,8 +7,7 @@ const invoke = () => {
 
   const track = new MidiWriter.Track();
 
-
-  const start = ranges.baritone.start;
+  const start = ranges.tenor.start;
   const end = ranges.tenor.end;
 
   let scale = createScale(start, end);
@@ -20,7 +19,9 @@ const invoke = () => {
   const write = new MidiWriter.Writer(track);
 
   return {
-    name: `6. Bups (Baritone)`,
+    name: `7. Bups (Baritone)`,
+    start,
+    end,
     description: "Huh-Nng / Nay",
     data: write.dataUri(),
   };

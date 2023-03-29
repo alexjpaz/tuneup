@@ -20,6 +20,8 @@ const invoke = () => {
 
     return {
         name: `3. Bass Gug`,
+        start,
+        end,
         description: "Gug",
         data: write.dataUri(),
     };

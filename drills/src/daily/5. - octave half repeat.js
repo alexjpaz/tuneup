@@ -7,7 +7,6 @@ const invoke = () => {
 
   const track = new MidiWriter.Track();
 
-
   const start = ranges.baritone.start;
   const end = ranges.tenor.end;
 
@@ -21,6 +20,8 @@ const invoke = () => {
 
   return {
     name: `5. Octave and half scale repeat (Baritone)`,
+    start,
+    end,
     description: "Huh-Nng / Nay",
     data: write.dataUri(),
   };
