@@ -1,7 +1,7 @@
 const ranges = require('../common/ranges');
 
 const MidiWriter = require('midi-writer-js');
-const { createScale } = require('../common/scales/octave-half-repeat');
+const { createScale } = require('../common/scales/octave-half');
 
 const invoke = () => {
 
@@ -20,7 +20,7 @@ const invoke = () => {
   const write = new MidiWriter.Writer(track);
 
   return {
-    name: `5. Octave and half scale repeat (Baritone)`,
+    name: `6. Octave and half scale (Baritone)`,
     description: "Huh-Nng / Nay",
     data: write.dataUri(),
   };

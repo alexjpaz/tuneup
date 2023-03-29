@@ -2,6 +2,7 @@ const { Interval, Note } = require("tonal");
 
 const { stepChord, endChord } = require("../utils");
 
+
 exports.createScale = (startNote, endNote) => {
     if (!startNote) {
         throw new Error("start note must not be null");

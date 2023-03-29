@@ -29,6 +29,6 @@ module.exports = function (manifest = {}) {
     manifest.drills.daily.items.push(chromaticBaritone.invoke());
     
     manifest.drills.daily.items.push(require("./octave-half").invoke()); 
-    manifest.drills.daily.items.push(require("./ Nay").invoke());
+    manifest.drills.daily.items.push(require("./5. - octave half repeat").invoke());
     manifest.drills.daily.items.push(require("./octave-half-triple").invoke());
 };

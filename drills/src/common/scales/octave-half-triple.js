@@ -18,9 +18,13 @@ exports.pushScaleSection = (events = [], rootNote) => {
 
     events.push({pitch: scale[0], duration: '2', velocity: '100', sequential: true });
 
-    events.push({pitch: scale, duration: 'd8', velocity: '100', sequential: true });
+    for(let i=0; i<3; i++) {
 
-    events.push({pitch: scale.slice(1,scale.length - 1).reverse(), duration: 'd8', velocity: '100', sequential: true });
+        events.push({pitch: scale, duration: 'd8', velocity: '100', sequential: true });
+
+        events.push({pitch: scale.slice(1,scale.length - 1).reverse(), duration: 'd8', velocity: '100', sequential: true });
+
+    }
 
     events.push({pitch: scale[0], duration: '2', velocity: '100', sequential: true });
 

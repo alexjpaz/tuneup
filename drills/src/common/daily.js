@@ -1,17 +1,16 @@
-const ranges = require('../common/ranges');
-
 const MidiWriter = require('midi-writer-js');
 
-const { createScale } = require('../common/scales/bubble');
-
-const invoke = () => {
-
+const invoke = ({
+    name,
+    description,
+    start,
+    end,
+    scale: [],
+}) => {
     const track = new MidiWriter.Track();
 
     const start = ranges.baritone.start;
     const end = ranges.tenor.end;
-
-    let scale = createScale(start, end);
 
     let events = scale.map((event) => new MidiWriter.NoteEvent(event));
 
@@ -20,8 +19,8 @@ const invoke = () => {
     const write = new MidiWriter.Writer(track);
 
     return {
-        name: `1. Bubble`,
-        description: `Warmup with Bubble / Raspberry / VVV (${start}-${end})`,
+        name,
+        description,
         data: write.dataUri(),
     };
 
