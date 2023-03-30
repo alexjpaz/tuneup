@@ -1,77 +1,34 @@
-const { Interval, Note } = require("tonal");
+const { Interval, Note, Scale } = require("tonal");
 
 const { stepChord, endChord } = require("../utils");
+const BaseScale = require('./BaseScale');
 
-exports.pushScaleSection = (events = [], rootNote) => {
-    if(!rootNote) {
-        throw new Error("root note must not be null");
-    }
-
-    let ocataveNote = Note.transpose(rootNote, Interval.fromSemitones(12));
-    
+exports.pushScaleSection = (events = [], currentNote) => {
     let scale = Scale.get(`${currentNote} pentatonic`).notes;
 
-    events.push({pitch: scale[0], duration: '2', velocity: '100', sequential: true });
+    let ocataveNote = Note.transpose(currentNote, Interval.fromSemitones(12));
 
-    events.push({pitch: scale, duration: 'd8', velocity: '100', sequential: true });
+    let ocataveScale = Scale.get(`${ocataveNote} pentatonic`).notes;
 
-    events.push({pitch: scale.slice(1,scale.length - 1).reverse(), duration: 'd8', velocity: '100', sequential: true });
+    scale = scale.concat(ocataveScale);
 
-    events.push({pitch: scale[0], duration: '2', velocity: '100', sequential: true });
+    scale.pop();
+
+    events.push({ pitch: scale[0], duration: '2', velocity: '100', sequential: true });
+
+    events.push({ pitch: scale, duration: '8', velocity: '100', sequential: true });
+
+    events.push({ pitch: scale.slice(1,scale.length - 1).reverse(), duration: '8', velocity: '100', sequential: true });
+
+    events.push({ pitch: scale[0], duration: '2', velocity: '100', sequential: true });
 
     return {
         scale,
-        topNote: ocataveNote,
-        bottomNote: rootNote,
-    };
+        topNote: scale[scale.length - 1],
+        bottomNote: scale[0],
+    }
 };
 
 exports.createScale = (startNote, endNote) => {
-    if (!startNote) {
-        throw new Error("start note must not be null");
-    }
-
-    if (!endNote) {
-        throw new Error("start note must not be null");
-    }
-
-    const events = [];
-
-    let currentNote = startNote;
-
-    let lastNote = null;
-    
-    while (currentNote !== null) {
-        
-        let { topNote } = exports.pushScaleSection(events, currentNote);
-
-        if (Interval.get(Interval.distance(endNote, topNote)).semitones <= 0) {
-            currentNote = Note.transpose(currentNote, Interval.fromSemitones(1));
-            currentNote = Note.simplify(currentNote);
-        } else {
-            lastNote = currentNote;
-            currentNote = null;
-            break;
-        }
-    }
-
-    currentNote = lastNote;
-
-    while (currentNote !== null) {
-        
-        let { bottomNote } = exports.pushScaleSection(events, currentNote);
-
-        if (Interval.get(Interval.distance(bottomNote, startNote)).semitones < 0) {
-            currentNote = Note.transpose(currentNote, Interval.fromSemitones(-1));
-            currentNote = Note.simplify(currentNote);
-        } else {
-            lastNote = currentNote;
-            currentNote = null;
-            break;
-        }
-    }
-
-    events.push(endChord(lastNote));
-
-    return events;
+    return BaseScale.createScale(startNote, endNote, exports.pushScaleSection);
 };

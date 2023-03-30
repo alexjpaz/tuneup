@@ -1,7 +1,7 @@
 const ranges = require('../common/ranges');
 
 const MidiWriter = require('midi-writer-js');
-const { createScale } = require('../common/scales/octave-half-triple');
+const { createScale } = require('../common/scales/pentatonic-major');
 
 const invoke = () => {
 
@@ -19,7 +19,7 @@ const invoke = () => {
   const write = new MidiWriter.Writer(track);
 
   return {
-    name: `7. Bups (Baritone)`,
+    name: `8. NNNh / Ayyy Pentatonic`,
     start,
     end,
     description: "Huh-Nng / Nay",

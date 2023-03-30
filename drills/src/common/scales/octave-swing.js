@@ -1,6 +1,8 @@
 const { Interval, Note } = require("tonal");
 
-const { stepChord, endChord } = require("../utils");
+const { stepChord } = require("../utils");
+
+const BaseScale = require('./BaseScale');
 
 exports.pushScaleSection = (events = [], currentNote) => {
     events.push(stepChord(currentNote));
@@ -19,49 +21,5 @@ exports.pushScaleSection = (events = [], currentNote) => {
 };
 
 exports.createScale = (startNote, endNote) => {
-    if (!startNote) {
-        throw new Error("start note must not be null");
-    }
-
-    if (!endNote) {
-        throw new Error("start note must not be null");
-    }
-
-    const events = [];
-
-    let currentNote = startNote;
-
-    let lastNote = null;
-
-    while (currentNote !== null) {
-
-        const { topNote } = exports.pushScaleSection(events, currentNote);
-
-        if (Interval.get(Interval.distance(endNote, topNote)).semitones < 0) {
-            currentNote = Note.transpose(currentNote, Interval.fromSemitones(1));
-            currentNote = Note.simplify(currentNote);
-        } else {
-            lastNote = currentNote;
-            currentNote = null;
-        }
-    }
-
-    currentNote = lastNote;
-
-    while (currentNote !== null) {
-
-        const { bottomNote } = exports.pushScaleSection(events, currentNote);
-
-        if (Interval.get(Interval.distance(currentNote, startNote)).semitones < 0) {
-            currentNote = Note.transpose(currentNote, Interval.fromSemitones(-1));
-            currentNote = Note.simplify(currentNote);
-        } else {
-            lastNote = currentNote;
-            currentNote = null;
-        }
-    }
-
-    events.push(endChord(lastNote));
-    
-    return events;
+    return BaseScale.createScale(startNote, endNote, exports.pushScaleSection);
 };

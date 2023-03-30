@@ -39,7 +39,7 @@ describe('createScale', () => {
 
     test('should call pushScaleSection', () => {
         expect(generator.pushScaleSection).toHaveBeenCalled();
-        expect(events.length).toBe(9);
+        expect(events.length).toBe(17);
     });
 });
 
