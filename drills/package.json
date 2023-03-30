@@ -4,10 +4,13 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-      "build": "node index.js && cp output/manifest.js ../web/src/database.json"
+    "build": "node src/index.js",
+    "build:copy": "npm run build && cp output/manifest.js ../web/src/database.json",
+    "test": "jest"
   },
   "dependencies": {},
   "devDependencies": {
+    "jest": "^29.5.0",
     "midi-writer-js": "^2.1.4",
     "tonal": "^4.14.0"
   }

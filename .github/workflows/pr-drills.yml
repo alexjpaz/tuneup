@@ -1,0 +1,26 @@
+name: "Test Drills"
+on: push
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🏗 Setup repo
+        uses: actions/checkout@v3
+
+      - name: 🏗 Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+          cache: yarn
+
+      - name: 📦 Install dependencies
+        run: yarn install
+        working-directory: ./drills
+
+      - name: 🤔 Test project
+        run: yarn test
+        working-directory: ./drills
+
+      - name: 🥕 Build project
+        run: yarn build
+        working-directory: ./drills
