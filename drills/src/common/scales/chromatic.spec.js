@@ -1,4 +1,4 @@
-const generator = require("./bubble");
+const generator = require("./chromatic");
 
 beforeEach(() => {
     jest.spyOn(generator, 'pushScaleSection');
@@ -33,21 +33,14 @@ describe('bubble', () => {
             expect(pitches).toEqual(expect.arrayContaining([endNote]));
         });
 
-        test('should have an octave repeat scale', () => {
-            expect(events[1].pitch).toEqual([
-                "C1",
-                "E1",
-                "G1",
-                "C2",
-                "E2",
-                "G2",
-                "F2",
-                "D2",
-                "B1",
-                "G1",
-                "F1",
-                "D1",
-            ]);
+        test('should have a chromatic scale', () => {
+            expect(events[1].pitch[0]).toEqual("C1");
+            //
+            expect(events[1].pitch[12]).toEqual("C2");
+            //
+            expect(events[2].pitch[10]).toEqual("Db1");
+            //
+            expect(events[3].pitch).toEqual("C1");
         });
 
 

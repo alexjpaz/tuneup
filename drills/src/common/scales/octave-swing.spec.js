@@ -1,40 +1,46 @@
-const { createScale } = require("./octave-swing");
+const generator = require("./octave-swing");
 
-test('create scale', () => {
-    const scale = createScale("E2", "E4");
-    
-    expect(scale[0]).toEqual({
-        duration: [ "2" ],
-        pitch: [
-            "E2",
-            "G2",
-            "B2"
-        ],
-        velocity: "100",
-        sequential: false,
-        wait: "16"
-    });
-    
-    expect(scale[1]).toEqual({
-        duration: "2",
-        pitch: "E2",
-        velocity: "100",
+beforeEach(() => {
+    jest.spyOn(generator, 'pushScaleSection');
+});
+
+afterEach(() => {    
+    jest.clearAllMocks();
+});
+
+describe('createScale', () => {
+
+    let startNote = "C1";
+    let endNote = "C2";
+
+    beforeEach(() => {
+        events = generator.createScale(startNote, endNote);
     });
 
-    expect(scale.slice(-2)[0]).toEqual({
-        duration: "d2",
-        pitch: "E4",
-        velocity: "100",
+    test('should begin with root note', () => {
+        expect(events[1].pitch).toEqual(startNote);
     });
 
-    expect(scale.slice(-1)[0]).toEqual({
-        duration: [ "1", "1" ],
-        pitch: [
-            "E4",
-            "G#4",
-            "B4"
-        ],
-        velocity: "100",
-        sequential: false,
+    test('should end with root note', () => {
+        expect(events.slice(-1)[0].pitch[0]).toEqual(startNote);
     });
-})
+
+    test('should have end note in the scale', () => {
+        const pitches = events.flatMap(e => e.pitch);
+
+        expect(pitches).toEqual(expect.arrayContaining([ endNote ]));
+    });
+
+    test('should have an octave swing', () => {
+        expect(events[1].pitch).toEqual("C1");
+        expect(events[2].pitch).toEqual("C2");
+        expect(events[3].pitch).toEqual("C1");
+    });
+
+    test('should call pushScaleSection', () => {
+        expect(generator.pushScaleSection).toHaveBeenCalled();
+        expect(events.length).toBe(9);
+    });
+});
+
+

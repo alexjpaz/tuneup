@@ -2,6 +2,21 @@ const { Interval, Note } = require("tonal");
 
 const { stepChord, endChord } = require("../utils");
 
+exports.pushScaleSection = (events = [], currentNote) => {
+    events.push(stepChord(currentNote));
+
+    const octaveNote = Note.transpose(currentNote, Interval.fromSemitones(12));
+
+    events.push({ pitch: currentNote, duration: '2', velocity: '100',  });
+    events.push({ pitch: octaveNote, duration: '2', velocity: '100',  });
+    events.push({ pitch: currentNote, duration: 'd2', velocity: '100',  });
+
+    return {
+        events,
+        bottomNote: currentNote,
+        topNote: octaveNote,
+    }
+};
 
 exports.createScale = (startNote, endNote) => {
     if (!startNote) {
@@ -20,15 +35,9 @@ exports.createScale = (startNote, endNote) => {
 
     while (currentNote !== null) {
 
-        events.push(stepChord(currentNote));
+        const { topNote } = exports.pushScaleSection(events, currentNote);
 
-        const octaveNote = Note.transpose(currentNote, Interval.fromSemitones(12));
-
-        events.push({ pitch: currentNote, duration: '2', velocity: '100',  });
-        events.push({ pitch: octaveNote, duration: '2', velocity: '100',  });
-        events.push({ pitch: currentNote, duration: 'd2', velocity: '100',  });
-
-        if (Interval.get(Interval.distance(endNote, octaveNote)).semitones < 0) {
+        if (Interval.get(Interval.distance(endNote, topNote)).semitones < 0) {
             currentNote = Note.transpose(currentNote, Interval.fromSemitones(1));
             currentNote = Note.simplify(currentNote);
         } else {
@@ -41,13 +50,7 @@ exports.createScale = (startNote, endNote) => {
 
     while (currentNote !== null) {
 
-        events.push(stepChord(currentNote));
-
-        const octaveNote = Note.transpose(currentNote, Interval.fromSemitones(12));
-
-        events.push({ pitch: currentNote, duration: '2', velocity: '100',  });
-        events.push({ pitch: octaveNote, duration: '2', velocity: '100',  });
-        events.push({ pitch: currentNote, duration: 'd2', velocity: '100',  });
+        const { bottomNote } = exports.pushScaleSection(events, currentNote);
 
         if (Interval.get(Interval.distance(currentNote, startNote)).semitones < 0) {
             currentNote = Note.transpose(currentNote, Interval.fromSemitones(-1));

@@ -1,5 +1,6 @@
 const { Interval, Note } = require("tonal");
 const { stepChord, endChord } = require("../utils");
+const BaseScale = require('./BaseScale');
 
 const intervals = [
     "1P",
@@ -16,64 +17,23 @@ const intervals = [
     "2M"
 ];
 
-exports.createScale = (startNote, endNote) => {
-    if (!startNote) {
-        throw new Error("start note must not be null");
-    }
+exports.pushScaleSection = (events = [], currentNote) => {
+    const scale = intervals.map((interval) => Note.transpose(currentNote, interval));
 
-    if (!endNote) {
-        throw new Error("start note must not be null");
-    }
-
-    const events = [];
-
-    let currentNote = startNote;
-
-    let lastNote = null;
+    events.push(stepChord(currentNote));
     
-    while (currentNote !== null) {
-        
-        const scale = intervals.map((interval) => Note.transpose(currentNote, interval));
+    events.push({ pitch: scale, duration: '4', velocity: '100', sequential: true });
+    
+    events.push({ pitch: scale[0], duration: '1', velocity: '100' });
 
-        events.push(stepChord(currentNote));
-        
-        events.push({ pitch: scale, duration: '4', velocity: '100', sequential: true });
-        
-        events.push({ pitch: scale[0], duration: '1', velocity: '100' });
-
-        if (Interval.get(Interval.distance(endNote, scale[5])).semitones <= 0) {
-            currentNote = Note.transpose(currentNote, Interval.fromSemitones(1));
-            currentNote = Note.simplify(currentNote);
-        } else {
-            lastNote = currentNote;
-            currentNote = null;
-            break;
-        }
+    return {
+        scale,
+        events,
+        bottomNote: scale[0],
+        topNote: scale[5],
     }
+};
 
-    currentNote = lastNote;
-
-    while (currentNote !== null) {
-
-        const scale = intervals.map((interval) => Note.transpose(currentNote, interval));
-
-        events.push(stepChord(currentNote));
-        
-        events.push({ pitch: scale, duration: '4', velocity: '100', sequential: true });
-        
-        events.push({ pitch: scale[0], duration: '1', velocity: '100' });
-
-        if (Interval.get(Interval.distance(scale[0], startNote)).semitones < 0) {
-            currentNote = Note.transpose(currentNote, Interval.fromSemitones(-1));
-            currentNote = Note.simplify(currentNote);
-        } else {
-
-
-            lastNote = currentNote;
-            currentNote = null;
-            break;
-        }
-    }
-
-    return events;
+exports.createScale = (startNote, endNote) => {
+    return BaseScale.createScale(startNote, endNote, exports.pushScaleSection);
 };
