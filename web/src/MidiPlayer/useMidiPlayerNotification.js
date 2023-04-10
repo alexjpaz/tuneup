@@ -10,30 +10,10 @@ export function useMidiPlayerNotification(iframeRef) {
 
         let observer;
 
-        iframeRef.current.addEventListener("load", () => {
-            if ('mediaSession' in navigator) {
 
-                navigator.mediaSession.metadata = new MediaMetadata({
-                title: 'Never Gonna Give You Up',
-                artist: 'Rick Astley',
-                album: 'Whenever You Need Somebody',
-                artwork: [
-                    { src: 'https://dummyimage.com/96x96',   sizes: '96x96',   type: 'image/png' },
-                    { src: 'https://dummyimage.com/128x128', sizes: '128x128', type: 'image/png' },
-                    { src: 'https://dummyimage.com/192x192', sizes: '192x192', type: 'image/png' },
-                    { src: 'https://dummyimage.com/256x256', sizes: '256x256', type: 'image/png' },
-                    { src: 'https://dummyimage.com/384x384', sizes: '384x384', type: 'image/png' },
-                    { src: 'https://dummyimage.com/512x512', sizes: '512x512', type: 'image/png' },
-                ]
-                });
-            
-                navigator.mediaSession.setActionHandler('play', function() {});
-                navigator.mediaSession.setActionHandler('pause', function() {});
-                navigator.mediaSession.setActionHandler('seekbackward', function() {});
-                navigator.mediaSession.setActionHandler('seekforward', function() {});
-                navigator.mediaSession.setActionHandler('previoustrack', function() {});
-                navigator.mediaSession.setActionHandler('nexttrack', function() {});
-            }
+
+
+        iframeRef.current.addEventListener("load", () => {
 
             const iframeDocument = iframeRef
                 .current
@@ -45,12 +25,42 @@ export function useMidiPlayerNotification(iframeRef) {
                 .shadowRoot
                 .querySelector(".controls");
 
+            const audioTag = iframeDocument.createElement('audio');
+            document.body.appendChild(audioTag);
+            audioTag.src = "https://raw.githubusercontent.com/anars/blank-audio/master/10-seconds-of-silence.mp3";
+            audioTag.loop = true;
+
+            controlsNode.addEventListener("click", () => {
+                async function foo() {
+                    await audioTag.play();
+
+                    if ("mediaSession" in navigator) {
+                        navigator.mediaSession.metadata = new MediaMetadata({
+                            title: "tuneup",
+                            artist: "tuneup",
+                            album: "tuneup",
+                        });
+                    }
+                }
+
+                foo();
+            }, false);
+
             const config = { attributes: true, childList: true, subtree: true };
 
             const callback = (mutationList, observer) => {
                 for (const mutation of mutationList) {
                     if (mutation.type === "attributes") {
-                        console.log(123, mutation.target)
+
+                        if ("mediaSession" in navigator) {
+                            if (mutation.target.classList.contains('stopped')) {
+                                navigator.mediaSession.playbackState = 'paused';
+                            }
+
+                            if (mutation.target.classList.contains('playing')) {
+                                navigator.mediaSession.playbackState = 'playing';
+                            }
+                        }
 
                     }
                 }
@@ -66,5 +76,5 @@ export function useMidiPlayerNotification(iframeRef) {
                 return;
             observer.disconnect();
         };
-    }, [ iframeRef ]);
+    }, [iframeRef]);
 }
