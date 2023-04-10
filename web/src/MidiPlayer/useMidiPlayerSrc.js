@@ -39,9 +39,10 @@ export function useMidiPlayerSrc(iframeRef, src) {
                 if (!targetNote)
                     return;
 
-                visualizerDiv.scrollTop = targetNote.y.baseVal.valueAsString - 20;
-                visualizerDiv.scrollLeft = targetNote.x.baseVal.valueAsString - 20;
-                ;
+                if(visualizerDiv) {
+                    visualizerDiv.scrollTop = targetNote.y.baseVal.valueAsString - 20;
+                    visualizerDiv.scrollLeft = targetNote.x.baseVal.valueAsString - 20;
+                }
             }, 100);
 
         };
