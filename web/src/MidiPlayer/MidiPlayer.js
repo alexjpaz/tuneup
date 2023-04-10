@@ -3,6 +3,7 @@ import React from 'react';
 import { useMidiPlayerAutoPlay } from './useMidiPlayerAutoPlay';
 import { useIframeStyling } from './useIframeStyling';
 import { useMidiPlayerSrc } from './useMidiPlayerSrc';
+import { useMidiPlayerNotification } from './useMidiPlayerNotification';
 
 
 export default function MidiPlayer({ src, soundFont = "https://storage.googleapis.com/magentadata/js/soundfonts/sgm_plus" }) {
@@ -14,6 +15,7 @@ export default function MidiPlayer({ src, soundFont = "https://storage.googleapi
     useIframeStyling(iframeRef);
     useMidiPlayerSrc(iframeRef, src);
     useMidiPlayerAutoPlay(iframeRef);
+    useMidiPlayerNotification(iframeRef);
 
     return (
         <div style={{display:"flex", flex: 1}}>
