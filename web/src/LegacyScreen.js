@@ -99,7 +99,7 @@ function LegacyScreen() {
                 <Paper sx={styles.topFlex} elevation={2} >
                 
                     <Box
-                    style={{"transform":`translateX(${offset}px)`, "width": "100%", "paddingTop": "40px", "paddingBottom": "40px"}}         
+                    style={{"transform":`translateX(${offset}px)`, "paddingTop": "20vh", "paddingBottom": "20vh"}}         
                     onTouchStart={onTouchStart} 
                     onTouchMove={onTouchMove} 
                     onTouchEnd={onTouchEnd}>
