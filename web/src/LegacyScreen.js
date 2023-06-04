@@ -24,10 +24,13 @@ function LegacyDisplay({ scale, handleTouchEnd = () => {} }) {
     );
 }
 
-function LegacyControls({ scale, handleTouchEnd = () => {} }) {
+function LegacyControls({ scale }) {
+
+
 
     return (
         <Box>
+            
             <audio src={`/media/${scale.value}`} controls autoplay></audio>
         </Box>
     )
@@ -99,7 +102,7 @@ function LegacyScreen() {
                 <Paper sx={styles.topFlex} elevation={2} >
                 
                     <Box
-                    style={{"transform":`translateX(${offset}px)`, "paddingTop": "20vh", "paddingBottom": "20vh"}}         
+                    style={{"transform":`translateX(${offset}px)`, "width": "100%", "paddingTop": "20vh", "paddingBottom": "20vh"}}         
                     onTouchStart={onTouchStart} 
                     onTouchMove={onTouchMove} 
                     onTouchEnd={onTouchEnd}>
