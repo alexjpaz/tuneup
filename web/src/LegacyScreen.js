@@ -9,17 +9,26 @@ import { Paper, Box, Stack, Pagination } from '@mui/material';
 
 import database from './database-legacy.json';
 
-function LegacyDisplay({ scale }) {
+function LegacyDisplay({ scale, handleTouchEnd = () => {} }) {
+    
+
 
     return (
-        <Typography fontSize="1.75rem" textAlign={"center"} variant="body1">{scale.label}</Typography>
+        <Typography 
+            fontSize="1.75rem" 
+            textAlign={"center"} 
+            variant="body1"
+            >
+            {scale.label}
+            </Typography>
     );
 }
 
-function LegacyControls({ scale }) {
+function LegacyControls({ scale, handleTouchEnd = () => {} }) {
+
     return (
         <Box>
-            <audio src={`/media/${scale.value}`} controls></audio>
+            <audio src={`/media/${scale.value}`} controls autoplay></audio>
         </Box>
     )
 }
@@ -29,16 +38,73 @@ function LegacyScreen() {
 
     const [scale, setScale] = React.useState(scales[0]);
 
+    const handleTouchEnd = (direction) => {
+        let index = scales.indexOf(scale);
+
+        if(direction === "right") {
+            index--;
+        }
+
+        if(direction === "left") {
+            index++;
+        }
+
+        let scale2 = scales[index];
+
+        if(!scale2) {
+            scale2 = scales[0];
+        }
+
+        setScale(scale2);
+    };
+
     const handlePageChange = (ev, page) => {
         setScale(scales[page - 1]);
     };
+
+    const [touchStart, setTouchStart] = React.useState(null);
+    const [touchEnd, setTouchEnd] = React.useState(null);
+    const [offset, setOffset] = React.useState(null);
+    
+    // the required distance between touchStart and touchEnd to be detected as a swipe
+    const minSwipeDistance = 20
+    
+    const onTouchStart = (e) => {
+      setOffset(0);
+      setTouchEnd(null) // otherwise the swipe is fired even with usual touch events
+      setTouchStart(e.targetTouches[0].clientX)
+    }
+    
+    const onTouchMove = (e) => {
+        setTouchEnd(e.targetTouches[0].clientX );
+        setOffset(e.targetTouches[0].clientX - e.target.offsetWidth / 2); 
+    }
+    
+    const onTouchEnd = () => {
+      if (!touchStart || !touchEnd) return
+      const distance = touchStart - touchEnd
+      const isLeftSwipe = distance > minSwipeDistance
+      const isRightSwipe = distance < -minSwipeDistance
+      if (isLeftSwipe || isRightSwipe) {
+        handleTouchEnd(isLeftSwipe ? 'left' : 'right');
+        setOffset(0);
+      }
+
+    }
 
     return (
         <>
             <MainDrawer />
             <Container maxWidth="sm" style={styles.container} data-testid="main-container">
-                <Paper sx={styles.topFlex} elevation={2}>
-                    <LegacyDisplay scale={scale} />
+                <Paper sx={styles.topFlex} elevation={2} >
+                
+                    <Box
+                    style={{"transform":`translateX(${offset}px)`, "width": "100%", "paddingTop": "40px", "paddingBottom": "40px"}}         
+                    onTouchStart={onTouchStart} 
+                    onTouchMove={onTouchMove} 
+                    onTouchEnd={onTouchEnd}>
+                        <LegacyDisplay scale={scale} handleTouchEnd={handleTouchEnd} />
+                    </Box>
                 </Paper>
                 <Paper sx={styles.bottomFlex} elevation={12}>
                     <LegacyControls scale={scale} />
@@ -65,7 +131,7 @@ const styles = {
 
     },
     topFlex: {
-        flex: 4,
+        flex: 8,
         paddingTop: "5vh",
         overflow: "hidden",
         display: "flex",
@@ -73,7 +139,7 @@ const styles = {
         justifyContent: "center",
     },
     bottomFlex: {
-        flex: 5,
+        flex: 3,
         overflow: "auto",
         display: "flex",
         alignItems: "center",
