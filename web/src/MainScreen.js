@@ -4,9 +4,10 @@ import './App.css';
 import DrillList from './DrillList';
 import MidiPlayer from './MidiPlayer';
 
-import { Box, IconButton, Paper } from '@mui/material';
+import MainDrawer from './Drawer';
+
 import { Container } from '@mui/system';
-import { Menu as MenuIcon } from '@mui/icons-material';
+import { Paper } from '@mui/material';
 
 function MainScreen() {
 
@@ -19,11 +20,7 @@ function MainScreen() {
 
     return (
         <>
-            <Box sx={styles.menu} data-testid="main-menu">
-                <IconButton>
-                    <MenuIcon />
-                </IconButton>
-            </Box>
+            <MainDrawer />
             <Container maxWidth="sm" style={styles.container} data-testid="main-container">
                 <Paper sx={styles.topFlex} elevation={2}>
                     <MidiPlayer src={state} />
