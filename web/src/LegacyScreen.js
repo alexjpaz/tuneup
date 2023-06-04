@@ -4,8 +4,7 @@ import MainDrawer from "./Drawer";
 
 import { Container } from '@mui/system';
 import Typography from '@mui/material/Typography';
-import { Paper, Box, Stack, Pagination } from '@mui/material';
-
+import { Paper, Box } from '@mui/material';
 
 import database from './database-legacy.json';
 
@@ -18,6 +17,7 @@ function LegacyDisplay({ scale, handleTouchEnd = () => {} }) {
             fontSize="1.75rem" 
             textAlign={"center"} 
             variant="body1"
+            style={{"display":"flex","alignSelf": "center"}}
             >
             {scale.label}
             </Typography>
@@ -26,11 +26,8 @@ function LegacyDisplay({ scale, handleTouchEnd = () => {} }) {
 
 function LegacyControls({ scale }) {
 
-
-
     return (
         <Box>
-            
             <audio src={`/media/${scale.value}`} controls autoplay></audio>
         </Box>
     )
@@ -61,16 +58,12 @@ function LegacyScreen() {
         setScale(scale2);
     };
 
-    const handlePageChange = (ev, page) => {
-        setScale(scales[page - 1]);
-    };
-
     const [touchStart, setTouchStart] = React.useState(null);
     const [touchEnd, setTouchEnd] = React.useState(null);
     const [offset, setOffset] = React.useState(null);
     
     // the required distance between touchStart and touchEnd to be detected as a swipe
-    const minSwipeDistance = 20
+    const minSwipeDistance = 40
     
     const onTouchStart = (e) => {
       setOffset(0);
@@ -100,25 +93,16 @@ function LegacyScreen() {
             <MainDrawer />
             <Container maxWidth="sm" style={styles.container} data-testid="main-container">
                 <Paper sx={styles.topFlex} elevation={2} >
-                
                     <Box
-                    style={{"transform":`translateX(${offset}px)`, "width": "100%", "paddingTop": "20vh", "paddingBottom": "20vh"}}         
+                    style={{"transform":`translateX(${offset}px)`, "display": "flex", "alignItems": "stretch"}}         
                     onTouchStart={onTouchStart} 
                     onTouchMove={onTouchMove} 
                     onTouchEnd={onTouchEnd}>
-                        <LegacyDisplay scale={scale} handleTouchEnd={handleTouchEnd} />
+                        <LegacyDisplay scale={scale} handleTouchEnd={handleTouchEnd}  style={{"display":"flex","alignSelf": "stretch",}}         />
                     </Box>
                 </Paper>
                 <Paper sx={styles.bottomFlex} elevation={12}>
                     <LegacyControls scale={scale} />
-                    <Box>
-
-                    </Box>
-                </Paper>
-                <Paper sx={styles.bottomFlex} elevation={12}>
-                    <Stack spacing={2}>
-                        <Pagination count={scales.length} onChange={handlePageChange} />
-                    </Stack>
                 </Paper>
             </Container>
         </>
@@ -138,7 +122,7 @@ const styles = {
         paddingTop: "5vh",
         overflow: "hidden",
         display: "flex",
-        alignItems: "center",
+        alignItems: "stretch",
         justifyContent: "center",
     },
     bottomFlex: {
