@@ -43,6 +43,19 @@ function LegacyControls({ scale, nextCallback = () => { }, previousCallback = ()
 
         const ref = audioRef.current
 
+        if ("mediaSession" in navigator) {
+            navigator.mediaSession.metadata = new MediaMetadata({
+                title: scale.label,
+                artist: "tuneup | scale excercises",
+            });
+
+
+            navigator.mediaSession.setActionHandler('nexttrack', () => {
+                nextCallback();
+            });
+            // TODO: Update playback state.
+        }
+
         const pauseListener = ref.addEventListener('pause', () => {
             setIsPlaying(false);
         });
@@ -57,7 +70,7 @@ function LegacyControls({ scale, nextCallback = () => { }, previousCallback = ()
             ref.removeEventListener('playing', playListener);
         };
 
-    }, [audioRef]);
+    }, [audioRef, nextCallback, scale]);
 
     const onClickPrevious = (e) => {
         e.stopPropagation();
