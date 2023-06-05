@@ -6,29 +6,99 @@ import { Container } from '@mui/system';
 import Typography from '@mui/material/Typography';
 import { Paper, Box } from '@mui/material';
 
+import { IconButton } from '@mui/material';
+import {
+    PlayCircle as PlayArrowIcon,
+    PauseCircle as PauseIcon,
+    SkipNext as SkipNextIcon,
+    SkipPrevious as SkipPreviousIcon,
+} from "@mui/icons-material";
+
 import database from './database-legacy.json';
 
-function LegacyDisplay({ scale, handleTouchEnd = () => {} }) {
-    
+function LegacyDisplay({ scale, handleTouchEnd = () => { } }) {
+
 
 
     return (
-        <Typography 
-            fontSize="1.75rem" 
-            textAlign={"center"} 
+        <Typography
+            fontSize="1.75rem"
+            textAlign={"center"}
             variant="body1"
-            style={{"display":"flex","alignSelf": "center"}}
-            >
+            style={{ "display": "flex", "alignSelf": "center" }}
+        >
             {scale.label}
-            </Typography>
+        </Typography>
     );
 }
 
-function LegacyControls({ scale }) {
+function LegacyControls({ scale, nextCallback = () => { }, previousCallback = () => { } }) {
+
+    const audioRef = React.useRef();
+
+    const [isPlaying, setIsPlaying] = React.useState(false);
+
+    React.useEffect(() => {
+        if (!audioRef || !audioRef.current) return;
+
+        const ref = audioRef.current
+
+        const pauseListener = ref.addEventListener('pause', () => {
+            setIsPlaying(false);
+        });
+
+        const playListener = ref.addEventListener('playing', () => {
+            setIsPlaying(true);
+        });
+
+        return () => {
+            if (!ref) return;
+            ref.removeEventListener('pause', pauseListener);
+            ref.removeEventListener('playing', playListener);
+        };
+
+    }, [audioRef]);
+
+    const onClickPrevious = (e) => {
+        e.stopPropagation();
+        if (!audioRef || !audioRef.current) return;
+
+        previousCallback();
+    };
+
+    const onClickPlay = (e) => {
+        e.stopPropagation();
+        if (!audioRef || !audioRef.current) return;
+
+        if (audioRef.current.paused) {
+            audioRef.current.play();
+        } else {
+            audioRef.current.pause();
+        }
+    };
+
+    const onClickNext = (e) => {
+        e.stopPropagation();
+        if (!audioRef || !audioRef.current) return;
+        nextCallback();
+    };
+
 
     return (
-        <Box>
-            <audio src={`/media/${scale.value}`} controls autoplay></audio>
+        <Box style={{ "display": "flex", "flexDirection": "column", "alignItems": "center" }}>
+            <audio src={`/media/${scale.value}`} ref={audioRef} controls autoPlay></audio>
+            <Box>
+                <IconButton aria-label="previous" size="large" onClick={onClickPrevious}>
+                    <SkipPreviousIcon size="large" />
+                </IconButton>
+                <IconButton aria-label="play" size="large" onClick={onClickPlay}>
+                    {!isPlaying && <PlayArrowIcon color="secondary" sx={{ fontSize: 72 }} />}
+                    {isPlaying && <PauseIcon color="secondary" sx={{ fontSize: 72 }} />}
+                </IconButton>
+                <IconButton aria-label="next" size="large" onClick={onClickNext}>
+                    <SkipNextIcon size="large" />
+                </IconButton>
+            </Box>
         </Box>
     )
 }
@@ -41,17 +111,17 @@ function LegacyScreen() {
     const handleTouchEnd = (direction) => {
         let index = scales.indexOf(scale);
 
-        if(direction === "right") {
+        if (direction === "right") {
             index--;
         }
 
-        if(direction === "left") {
+        if (direction === "left") {
             index++;
         }
 
         let scale2 = scales[index];
 
-        if(!scale2) {
+        if (!scale2) {
             scale2 = scales[0];
         }
 
@@ -61,30 +131,30 @@ function LegacyScreen() {
     const [touchStart, setTouchStart] = React.useState(null);
     const [touchEnd, setTouchEnd] = React.useState(null);
     const [offset, setOffset] = React.useState(null);
-    
+
     // the required distance between touchStart and touchEnd to be detected as a swipe
     const minSwipeDistance = 40
-    
+
     const onTouchStart = (e) => {
-      setOffset(0);
-      setTouchEnd(null) // otherwise the swipe is fired even with usual touch events
-      setTouchStart(e.targetTouches[0].clientX)
-    }
-    
-    const onTouchMove = (e) => {
-        setTouchEnd(e.targetTouches[0].clientX );
-        setOffset(e.targetTouches[0].clientX - e.target.offsetWidth / 2); 
-    }
-    
-    const onTouchEnd = () => {
-      if (!touchStart || !touchEnd) return
-      const distance = touchStart - touchEnd
-      const isLeftSwipe = distance > minSwipeDistance
-      const isRightSwipe = distance < -minSwipeDistance
-      if (isLeftSwipe || isRightSwipe) {
-        handleTouchEnd(isLeftSwipe ? 'left' : 'right');
         setOffset(0);
-      }
+        setTouchEnd(null) // otherwise the swipe is fired even with usual touch events
+        setTouchStart(e.targetTouches[0].clientX)
+    }
+
+    const onTouchMove = (e) => {
+        setTouchEnd(e.targetTouches[0].clientX);
+        setOffset(e.targetTouches[0].clientX - e.target.offsetWidth / 2);
+    }
+
+    const onTouchEnd = () => {
+        if (!touchStart || !touchEnd) return
+        const distance = touchStart - touchEnd
+        const isLeftSwipe = distance > minSwipeDistance
+        const isRightSwipe = distance < -minSwipeDistance
+        if (isLeftSwipe || isRightSwipe) {
+            handleTouchEnd(isLeftSwipe ? 'left' : 'right');
+            setOffset(0);
+        }
 
     }
 
@@ -94,15 +164,15 @@ function LegacyScreen() {
             <Container maxWidth="sm" style={styles.container} data-testid="main-container">
                 <Paper sx={styles.topFlex} elevation={2} >
                     <Box
-                    style={{"transform":`translateX(${offset}px)`, "display": "flex", "alignItems": "stretch"}}         
-                    onTouchStart={onTouchStart} 
-                    onTouchMove={onTouchMove} 
-                    onTouchEnd={onTouchEnd}>
-                        <LegacyDisplay scale={scale} handleTouchEnd={handleTouchEnd}  style={{"display":"flex","alignSelf": "stretch",}}         />
+                        style={{ "transform": `translateX(${offset}px)`, "display": "flex", "alignItems": "stretch" }}
+                        onTouchStart={onTouchStart}
+                        onTouchMove={onTouchMove}
+                        onTouchEnd={onTouchEnd}>
+                        <LegacyDisplay scale={scale} handleTouchEnd={handleTouchEnd} style={{ "display": "flex", "alignSelf": "stretch", }} />
                     </Box>
                 </Paper>
                 <Paper sx={styles.bottomFlex} elevation={12}>
-                    <LegacyControls scale={scale} />
+                    <LegacyControls scale={scale} nextCallback={() => handleTouchEnd("left")} previousCallback={() => handleTouchEnd("right")} />
                 </Paper>
             </Container>
         </>
@@ -129,7 +199,8 @@ const styles = {
         flex: 3,
         overflow: "auto",
         display: "flex",
-        alignItems: "center",
+        paddingTop: "20px",
+        alignItems: "baseline",
         justifyContent: "center",
     }
 }
