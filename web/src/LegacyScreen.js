@@ -98,7 +98,7 @@ function LegacyControls({ scale, nextCallback = () => { }, previousCallback = ()
 
 
     return (
-        <Box style={{ "display": "flex", "flexDirection": "column", "alignItems": "center" }}>
+        <Box style={{ "display": "flex", "flexDirection": "column", "alignItems": "center", "align-self": "center" }}>
             <audio src={`/media/${scale.value}`} ref={audioRef} controls autoPlay></audio>
             <Box>
                 <IconButton aria-label="previous" size="large" onClick={onClickPrevious}>
@@ -209,7 +209,7 @@ const styles = {
         justifyContent: "center",
     },
     bottomFlex: {
-        flex: 3,
+        flex: 2,
         overflow: "auto",
         display: "flex",
         paddingTop: "20px",
