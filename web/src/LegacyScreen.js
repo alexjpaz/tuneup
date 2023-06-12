@@ -4,7 +4,7 @@ import MainDrawer from "./Drawer";
 
 import { Container } from '@mui/system';
 import Typography from '@mui/material/Typography';
-import { Paper, Box } from '@mui/material';
+import { Paper, Box, Button } from '@mui/material';
 
 import { IconButton } from '@mui/material';
 import {
@@ -98,7 +98,7 @@ function LegacyControls({ scale, nextCallback = () => { }, previousCallback = ()
 
 
     return (
-        <Box style={{ "display": "flex", "flexDirection": "column", "alignItems": "center", "align-self": "center" }}>
+        <Box style={{ "display": "flex", "flexDirection": "column", "alignItems": "center", "alignSelf": "center" }}>
             <audio src={`/media/${scale.value}`} ref={audioRef} controls autoPlay></audio>
             <Box>
                 <IconButton aria-label="previous" size="large" onClick={onClickPrevious}>
@@ -117,6 +117,41 @@ function LegacyControls({ scale, nextCallback = () => { }, previousCallback = ()
 }
 
 function LegacyScreen() {
+    return (
+        <>
+            <MainDrawer />
+            <LegacyGuideContainerGate />
+        </>
+    );
+}
+
+function LegacyGuideStartComponent({ onClickStart = () => { } }) {
+
+    return (
+        <Container maxWidth="sm" style={styles.container} data-testid="main-container">
+            <Paper sx={styles.bottomFlex} elevation={2}>
+                <Box style={{"alignSelf": "center"}}>
+                    <Button variant="contained" size={"large"} startIcon={<PlayArrowIcon />} onClick={onClickStart} >
+                        Start Guided Scales
+                    </Button>
+                </Box>
+            </Paper>
+        </Container>
+    );
+}
+
+function LegacyGuideContainerGate() {
+    const [started, setStarted] = React.useState(false);
+
+    return (
+        <>
+            {started && <LegacyGuideContainer />}
+            {!started && <LegacyGuideStartComponent onClickStart={() => setStarted(true)} />}
+        </>
+    );
+}
+
+function LegacyGuideContainer() {
     const scales = database.guided.scales;
 
     const [scale, setScale] = React.useState(scales[0]);
@@ -173,7 +208,6 @@ function LegacyScreen() {
 
     return (
         <>
-            <MainDrawer />
             <Container maxWidth="sm" style={styles.container} data-testid="main-container">
                 <Paper sx={styles.topFlex} elevation={2} >
                     <Box
