@@ -131,7 +131,7 @@ function LegacyGuideStartComponent({ onClickStart = () => { } }) {
         <Container maxWidth="sm" style={styles.container} data-testid="main-container">
             <Paper sx={styles.bottomFlex} elevation={2}>
                 <Box style={{"alignSelf": "center"}}>
-                    <Button variant="contained" size={"large"} startIcon={<PlayArrowIcon />} onClick={onClickStart} >
+                    <Button variant="contained" size={"large"} color="secondary" startIcon={<PlayArrowIcon />} onClick={onClickStart} >
                         Start Guided Scales
                     </Button>
                 </Box>
