@@ -64,10 +64,15 @@ function LegacyControls({ scale, nextCallback = () => { }, previousCallback = ()
             setIsPlaying(true);
         });
 
+        const endedListner = ref.addEventListener("ended", (event) => {
+            nextCallback();
+        });
+
         return () => {
             if (!ref) return;
             ref.removeEventListener('pause', pauseListener);
             ref.removeEventListener('playing', playListener);
+            ref.removeEventListener('playing', endedListner);
         };
 
     }, [audioRef, nextCallback, scale]);
