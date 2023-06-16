@@ -16,6 +16,7 @@ import {
 
 import database from './database-legacy.json';
 
+
 function LegacyDisplay({ scale, handleTouchEnd = () => { } }) {
 
 
@@ -146,7 +147,7 @@ function LegacyGuideStartComponent({ onClickStart = () => { } }) {
 }
 
 function LegacyGuideContainerGate() {
-    const [started, setStarted] = React.useState(false);
+    const [started, setStarted] = React.useState(true);
 
     return (
         <>
@@ -215,13 +216,14 @@ function LegacyGuideContainer() {
         <>
             <Container maxWidth="sm" style={styles.container} data-testid="main-container">
                 <Paper sx={styles.topFlex} elevation={2} >
-                    <Box
-                        style={{ "transform": `translateX(${offset}px)`, "display": "flex", "alignItems": "stretch" }}
+                    <Paper
+                        elevation={7} 
+                        style={{ "transform": `translateX(${offset}px)`, "display": "flex", "alignItems": "stretch", "width":"90%", "alignSelf": "center", "aspectRatio": "1 / 1", "padding": "10px", "textAlign": "center" }}
                         onTouchStart={onTouchStart}
                         onTouchMove={onTouchMove}
                         onTouchEnd={onTouchEnd}>
                         <LegacyDisplay scale={scale} handleTouchEnd={handleTouchEnd} style={{ "display": "flex", "alignSelf": "stretch", }} />
-                    </Box>
+                    </Paper>
                 </Paper>
                 <Paper sx={styles.bottomFlex} elevation={12}>
                     <LegacyControls scale={scale} nextCallback={() => handleTouchEnd("left")} previousCallback={() => handleTouchEnd("right")} />
