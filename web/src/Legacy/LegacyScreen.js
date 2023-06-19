@@ -1,6 +1,6 @@
 import React from "react";
 
-import MainDrawer from "./Drawer";
+import MainDrawer from "../Drawer";
 
 import { Container } from '@mui/system';
 import Typography from '@mui/material/Typography';
@@ -14,7 +14,7 @@ import {
     SkipPrevious as SkipPreviousIcon,
 } from "@mui/icons-material";
 
-import database from './database-legacy.json';
+import database from '../database-legacy.json';
 
 
 function LegacyDisplay({ scale, handleTouchEnd = () => { } }) {
@@ -218,6 +218,7 @@ function LegacyGuideContainer() {
                 <Paper sx={styles.topFlex} elevation={2} >
                     <Paper
                         elevation={20} 
+
                         style={{ "transform": `translateX(${offset}px)`, "display": "flex", "alignItems": "stretch", "width":"90%", "alignSelf": "center", "aspectRatio": "1 / 1", "padding": "10px", "textAlign": "center", "background": scale.background }}
                         onTouchStart={onTouchStart}
                         onTouchMove={onTouchMove}

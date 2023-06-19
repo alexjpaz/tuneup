@@ -8,7 +8,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import theme from './theme';
 
 import MainScreen from './MainScreen';
-import LegacyScreen from './LegacyScreen';
+import LegacyScreen from './Legacy/LegacyScreen';
 
 import {
   createBrowserRouter,
