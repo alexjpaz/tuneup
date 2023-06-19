@@ -218,7 +218,7 @@ function LegacyGuideContainer() {
                 <Paper sx={styles.topFlex} elevation={2} >
                     <Paper
                         elevation={7} 
-                        style={{ "transform": `translateX(${offset}px)`, "display": "flex", "alignItems": "stretch", "width":"90%", "alignSelf": "center", "aspectRatio": "1 / 1", "padding": "10px", "textAlign": "center" }}
+                        style={{ "transform": `translateX(${offset}px)`, "display": "flex", "alignItems": "stretch", "width":"90%", "alignSelf": "center", "aspectRatio": "1 / 1", "padding": "10px", "textAlign": "center", "background": scale.background }}
                         onTouchStart={onTouchStart}
                         onTouchMove={onTouchMove}
                         onTouchEnd={onTouchEnd}>
