@@ -26,7 +26,7 @@ function LegacyDisplay({ scale, handleTouchEnd = () => { } }) {
             fontSize="1.75rem"
             textAlign={"center"}
             variant="body1"
-            style={{ "display": "flex", "alignSelf": "center" }}
+            style={{ "alignSelf": "center", "width": "100%" }}
         >
             {scale.label}
         </Typography>
