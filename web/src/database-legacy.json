@@ -7,15 +7,16 @@
             { "label": "4. Mum", "value": "nebula_scales/tenor/Arpeggio Octave Major - C3 to C5 - Tenor.mp3", "background": "radial-gradient(at left top, #8D6A8D, #B3755D)" },
             { "label": "5. Bub", "value": "nebula_scales/baritone/Pentatonic 12th Major - G2 to G4 - Baritone.mp3", "background": "radial-gradient(at left top, #7A22D8, #EFE58F" },
             { "label": "6. Bup", "value": "nebula_scales/baritone/Circular 5th Major - D3 to G4 - Baritone.mp3", "background": "radial-gradient(at left top, #18D493, #4A7D1D)" },
-            { "label": "7. Nnng-EE-Mmm", "value": "nebula_scales/tenor/Circular 5th Minor - G3 to C5 - Tenor.mp3", "background": "radial-gradient(at left top, #D95C0D, #4D4953)" },
             { "label": "8. Nnng-Ayy (Tenor Passagio)", "value": "nebula_scales/baritone/Pentatonic 12th Minor - G2 to G4 - Baritone.mp3", "background": "radial-gradient(at left top, #9E9BC3, #6D1F54)"},
+            { "label": "7. Nnng-EE-Mmm", "value": "nebula_scales/tenor/Circular 5th Minor - G3 to C5 - Tenor.mp3", "background": "radial-gradient(at left top, #D95C0D, #4D4953)" },
             { "label": "9. Gug", "value": "nebula_scales/tenor/Standard Octave Chromatic - C3 to C5 - Tenor.mp3", "background": "radial-gradient(at left top, #7B57FC, #93A16F)" },
             { "label": "10. Goo/Koo", "value": "nebula_scales/tenor/Arpeggio Octave Minor - C3 to C5 - Tenor.mp3", "background": "radial-gradient(at left top, #812737, #B3DA67)" },
-            { "label": "11. Siren Baritone", "value": "nebula_scales/baritone/Siren Octave Major - G2 to G4 - Baritone.mp3", "background": "radial-gradient(at left top, #AF6D89, #E33985)" },
-            { "label": "12. Siren Tenor", "value": "nebula_scales/tenor/Siren Octave Major - C3 to C5 - Tenor.mp3", "background": "radial-gradient(at left top, #5465B8, #AA80CA)" },
-            { "label": "13. Hold Vowels", "value": "nebula_scales/baritone/Unison - G2 to G4 - Baritone.mp3", "background": "radial-gradient(at left top, #6D1857, #1E25CB)" },
-            { "label": "14. Interval Training", "value": "BaritonIntervalTraining.ogg", "background": "radial-gradient(at left top, #33483E, #6FBD1E)" },
-            { "label": "15. Cooldown - Bubble, VVV, Puffycheeks, Raspberry",  "background": "radial-gradient(at left top, #B91D1A, #940F95)" }
+            { "label": "11. IH/EE", "value": "nebula_scales/tenor/Standard 9th Major - C3 to C5 - Tenor.mp3", "background": "linear-gradient(135deg, #C3CCC1, #ADA10A)" },
+            { "label": "12. Siren Baritone", "value": "nebula_scales/baritone/Siren Octave Major - G2 to G4 - Baritone.mp3", "background": "radial-gradient(at left top, #AF6D89, #E33985)" },
+            { "label": "13. Siren Tenor", "value": "nebula_scales/tenor/Siren Octave Major - C3 to C5 - Tenor.mp3", "background": "radial-gradient(at left top, #5465B8, #AA80CA)" },
+            { "label": "14. Hold Vowels", "value": "nebula_scales/baritone/Unison - G2 to G4 - Baritone.mp3", "background": "radial-gradient(at left top, #6D1857, #1E25CB)" },
+            { "label": "15. Interval Training", "value": "BaritonIntervalTraining.ogg", "background": "radial-gradient(at left top, #33483E, #6FBD1E)" },
+            { "label": "16 . Cooldown - Bubble, VVV, Puffycheeks, Raspberry",  "background": "radial-gradient(at left top, #B91D1A, #940F95)" }
         ]
     }
 }
